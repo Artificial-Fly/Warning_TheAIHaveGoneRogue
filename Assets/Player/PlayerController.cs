@@ -36,13 +36,18 @@ public class PlayerController : MonoBehaviour
                 PlayerCharacterAP.OnActionDecreased += HandleActionDecreased;
                 PlayerCharacterAP.OnActionReset += HandleActionReset;
                 //first time dispatchers run
-                PlayerCharacterHP.IncreaseHealth(999);
-                PlayerCharacterAP.ResetAction();
                 //PlayerCharacterHP.DecreaseHealth(999);
+                Invoke("ResetStats",0.3f);
             } 
         }
     }
-
+    void ResetStats(){
+        if (PlayerCharacterHP!=null && PlayerCharacterAP != null){
+            PlayerCharacterHP.IncreaseHealth(999);
+            PlayerCharacterAP.ResetAction();
+            Debug.Log("Player's Stats Have Been Reset");
+        }
+    }
     // Update is called once per frame
     void Update()
     {

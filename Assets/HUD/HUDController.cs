@@ -60,6 +60,7 @@ public class HUDController : MonoBehaviour
                 PlayerCharacterHP.OnHealthIncreased += HandleHealthIncreased;
                 PlayerCharacterAP.OnActionDecreased += HandleActionDecreased;
                 PlayerCharacterAP.OnActionReset += HandleActionReset;
+                Debug.Log("HUD is listening to Player's Stats..");
             } 
         }  
     }
