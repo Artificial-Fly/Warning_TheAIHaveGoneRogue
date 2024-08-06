@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7041414212991170438}
   m_Layer: 0
   m_Name: CombatManager
-  m_TagString: Untagged
+  m_TagString: CombatManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d1fd6b703c284da0049205d0ed47c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CombatRounds: 10

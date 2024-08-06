@@ -13,7 +13,7 @@ public class QueueController : MonoBehaviour
     //event dispatchers go here
     //-----------------
     //methods go here
-    public bool UpdateActorsDictionary(GameObject TargetActor, int NextAction){//1=up,2=down,3=left,4=right,5=attack,6=attack(alt)
+    public bool UpdateActorsDictionary(GameObject TargetActor, int NextAction){//1=up,2=down,3=left,4=right,5=attack,0=idle
         try{
             if(ActorsDictionary.ContainsKey(TargetActor)){
             ActorsDictionary[TargetActor] = NextAction;
@@ -31,6 +31,35 @@ public class QueueController : MonoBehaviour
         try{
             foreach(var Actor in ActorsDictionary){
                 Debug.Log(Actor.Key.ToString()+" initiates "+Actor.Value.ToString());
+                if(Actor.Value==0){
+                    //idle
+                    Debug.Log("Idle Action");
+                    return true;
+                }else if(Actor.Value==1){
+                    //up
+                    Debug.Log("Up Action");
+                    Actor.Key.transform.Translate(0,10,0);
+                    return true;
+                }else if(Actor.Value==2){
+                    //down
+                    Debug.Log("Down Action");
+                    Actor.Key.transform.Translate(0,-10,0);
+                    return true;
+                }else if(Actor.Value==3){
+                    //left
+                    Debug.Log("Left Action");
+                    Actor.Key.transform.Translate(-10,0,0);
+                    return true;
+                }else if(Actor.Value==4){
+                    //right
+                    Debug.Log("Right Action");
+                    Actor.Key.transform.Translate(10,0,0);
+                    return true;
+                }else if(Actor.Value==5){
+                    //attack
+                    Debug.Log("Attack Action");
+                    return true;
+                }
             }
             return true;
         }catch{
