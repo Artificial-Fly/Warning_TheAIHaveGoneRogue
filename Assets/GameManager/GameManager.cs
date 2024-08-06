@@ -5,12 +5,19 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     //variables go here
-    private GameObject PlayerCharacter;
+    private GameObject PlayerCharacter, CombatManager, HUDManager;
     private HealthPoints PlayerCharacterHP;
     private ActionPoints PlayerCharacterAP;
     //-----------------
     //event dispatchers go here
     //methods go here
+    public bool UpdateCombatManageerQueue(GameObject TargetActor, int NextAction){
+        if(CombatManager.GetComponent<QueueController>()!=null){
+            return CombatManager.GetComponent<QueueController>().UpdateActorsDictionary(TargetActor, NextAction);
+        }else{
+            return false;
+        }
+    }
     private void HandleHealthDecreased(int CurrentValue, int MaxValue, float DeltaKoef){}
     private void HandleHealthIncreased(int CurrentValue, int MaxValue, float DeltaKoef){}
     private void HandleActionDecreased(int CurrentValue, int MaxValue, float DeltaKoef){}
@@ -18,9 +25,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerCharacter = GameObject.FindWithTag("Player");
-        PlayerCharacterHP = GameObject.FindWithTag("Player").GetComponent<HealthPoints>();
-        PlayerCharacterAP = GameObject.FindWithTag("Player").GetComponent<ActionPoints>();
+        PlayerCharacter = GameObject.FindWithTag("PlayerCharacter");
+        PlayerCharacterHP = GameObject.FindWithTag("PlayerCharacter").GetComponent<HealthPoints>();
+        PlayerCharacterAP = GameObject.FindWithTag("PlayerCharacter").GetComponent<ActionPoints>();
         if(PlayerCharacter==null){
             Debug.Log("Can't find PlayerCharacter");
         }else{
@@ -32,6 +39,11 @@ public class GameManager : MonoBehaviour
                 PlayerCharacterAP.OnActionDecreased += HandleActionDecreased;
                 PlayerCharacterAP.OnActionReset += HandleActionReset;
             } 
+        }
+        //-----------------
+        CombatManager = GameObject.FindWithTag("CombatManager");
+        if(CombatManager!=null){
+            Debug.Log("Player Character CombatQueue Status: "+UpdateCombatManageerQueue(PlayerCharacter, 0).ToString());
         }
     }
 

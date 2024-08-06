@@ -22,9 +22,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerCharacter = GameObject.FindWithTag("Player");
-        PlayerCharacterHP = GameObject.FindWithTag("Player").GetComponent<HealthPoints>();
-        PlayerCharacterAP = GameObject.FindWithTag("Player").GetComponent<ActionPoints>();
+        PlayerCharacter = GameObject.FindWithTag("PlayerCharacter");
+        PlayerCharacterHP = GameObject.FindWithTag("PlayerCharacter").GetComponent<HealthPoints>();
+        PlayerCharacterAP = GameObject.FindWithTag("PlayerCharacter").GetComponent<ActionPoints>();
         if(PlayerCharacter==null){
             Debug.Log("Can't find PlayerCharacter");
         }else{
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
         if (PlayerCharacterHP!=null && PlayerCharacterAP != null){
             PlayerCharacterHP.IncreaseHealth(999);
             PlayerCharacterAP.ResetAction();
-            Debug.Log("Player's Stats Have Been Reset");
+            Debug.Log("PlayerCharacter's Stats Have Been Reset");
         }
     }
     // Update is called once per frame

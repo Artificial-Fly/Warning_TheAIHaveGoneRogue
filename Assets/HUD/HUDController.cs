@@ -47,9 +47,9 @@ public class HUDController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerCharacter = GameObject.FindWithTag("Player");
-        PlayerCharacterHP = GameObject.FindWithTag("Player").GetComponent<HealthPoints>();
-        PlayerCharacterAP = GameObject.FindWithTag("Player").GetComponent<ActionPoints>();
+        PlayerCharacter = GameObject.FindWithTag("PlayerCharacter");
+        PlayerCharacterHP = GameObject.FindWithTag("PlayerCharacter").GetComponent<HealthPoints>();
+        PlayerCharacterAP = GameObject.FindWithTag("PlayerCharacter").GetComponent<ActionPoints>();
         if(PlayerCharacter==null){
             Debug.Log("Can't find PlayerCharacter");
         }else{
@@ -60,7 +60,7 @@ public class HUDController : MonoBehaviour
                 PlayerCharacterHP.OnHealthIncreased += HandleHealthIncreased;
                 PlayerCharacterAP.OnActionDecreased += HandleActionDecreased;
                 PlayerCharacterAP.OnActionReset += HandleActionReset;
-                Debug.Log("HUD is listening to Player's Stats..");
+                Debug.Log("HUD is listening to PlayerCharacter's Stats..");
             } 
         }  
     }
