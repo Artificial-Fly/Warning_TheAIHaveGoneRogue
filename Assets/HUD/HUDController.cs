@@ -10,11 +10,17 @@ public class HUDController : MonoBehaviour
     private GameObject PlayerCharacter;
     private HealthPoints PlayerCharacterHP;
     private ActionPoints PlayerCharacterAP;
+    private GameManager GameManagerScript;
     //-----------------
     public Slider PlayerCharacterHPSlider;
     public Slider PlayerCharacterAPSlider;
     //event dispatchers go here
     //methods go here
+    public void UpdatePlayerCharacterNextAction(int NextAction){
+        if(GameManagerScript!=null){
+            GameManagerScript.UpdateCombatManageerQueue(PlayerCharacter, NextAction);
+        }
+    }
     private void HandleHealthDecreased(int CurrentValue, int MaxValue, float DeltaKoef){
         Debug.Log("Health Points Decreased");
         if(PlayerCharacterHPSlider!=null){
@@ -62,7 +68,8 @@ public class HUDController : MonoBehaviour
                 PlayerCharacterAP.OnActionReset += HandleActionReset;
                 Debug.Log("HUD is listening to PlayerCharacter's Stats..");
             } 
-        }  
+        }
+        GameManagerScript = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame

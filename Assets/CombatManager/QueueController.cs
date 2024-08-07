@@ -20,7 +20,7 @@ public class QueueController : MonoBehaviour
             }else{
                 ActorsDictionary.Add(TargetActor, NextAction);
             }
-            Debug.Log("Success! ActorsDictionary Has Been Updated..");
+            Debug.Log("Success! ActorsDictionary ("+ TargetActor.ToString()+", "+ NextAction.ToString() +") Has Been Updated..");
             return true;
         }catch{
             Debug.Log("Error! ActorsDictionary Hasn't Been Updated..");
@@ -71,7 +71,7 @@ public class QueueController : MonoBehaviour
     void Start()
     {
         CurrentCombatRounds=CombatRounds;
-        Invoke("CompleteCombatRound", 1);
+        InvokeRepeating("CompleteCombatRound", 1, 1);
     }
 
     // Update is called once per frame
