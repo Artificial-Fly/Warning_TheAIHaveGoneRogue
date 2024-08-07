@@ -18,6 +18,12 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
+    private void HandleOnCompletedRound(int CurrentCombatRounds){
+        if(!(CurrentCombatRounds>0)){
+            CombatManager.GetComponent<QueueController>().UpdateCombatStatus(false);
+            PlayerCharacterHP.DecreaseHealth(999);
+        }
+    }
     private void HandleHealthDecreased(int CurrentValue, int MaxValue, float DeltaKoef){}
     private void HandleHealthIncreased(int CurrentValue, int MaxValue, float DeltaKoef){}
     private void HandleActionDecreased(int CurrentValue, int MaxValue, float DeltaKoef){}
@@ -44,6 +50,7 @@ public class GameManager : MonoBehaviour
         CombatManager = GameObject.FindWithTag("CombatManager");
         if(CombatManager!=null){
             Debug.Log("Player Character CombatQueue Status: "+UpdateCombatManageerQueue(PlayerCharacter, 0).ToString());
+            CombatManager.GetComponent<QueueController>().OnRoundCompleted += HandleOnCompletedRound;
         }
     }
 

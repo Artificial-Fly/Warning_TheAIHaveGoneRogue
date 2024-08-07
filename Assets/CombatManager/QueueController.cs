@@ -11,8 +11,17 @@ public class QueueController : MonoBehaviour
     private int CurrentCombatRounds;
     //-----------------
     //event dispatchers go here
+    public delegate void RoundCompleted(int CurrentCombatRounds);
+    public event RoundCompleted OnRoundCompleted;
     //-----------------
     //methods go here
+    public void UpdateCombatStatus(bool IsCombatStarted){
+        if(IsCombatStarted){
+            InvokeRepeating("CompleteCombatRound", 0.5f, 1);
+        }else{
+            CancelInvoke();
+        }
+    }
     public bool UpdateActorsDictionary(GameObject TargetActor, int NextAction){//1=up,2=down,3=left,4=right,5=attack,0=idle
         try{
             if(ActorsDictionary.ContainsKey(TargetActor)){
@@ -34,34 +43,41 @@ public class QueueController : MonoBehaviour
                 if(Actor.Value==0){
                     //idle
                     Debug.Log("Idle Action");
-                    return true;
+                    //return true;
                 }else if(Actor.Value==1){
                     //up
                     Debug.Log("Up Action");
                     Actor.Key.transform.Translate(0,10,0);
-                    return true;
+                    //return true;
                 }else if(Actor.Value==2){
                     //down
                     Debug.Log("Down Action");
                     Actor.Key.transform.Translate(0,-10,0);
-                    return true;
+                    //return true;
                 }else if(Actor.Value==3){
                     //left
                     Debug.Log("Left Action");
                     Actor.Key.transform.Translate(-10,0,0);
-                    return true;
+                    //return true;
                 }else if(Actor.Value==4){
                     //right
                     Debug.Log("Right Action");
                     Actor.Key.transform.Translate(10,0,0);
-                    return true;
+                    //return true;
                 }else if(Actor.Value==5){
                     //attack
                     Debug.Log("Attack Action");
-                    return true;
+                    //return true;
                 }
             }
-            return true;
+            if(OnRoundCompleted!=null){
+                CurrentCombatRounds--;
+                OnRoundCompleted(CurrentCombatRounds);
+                Debug.Log("Completed");
+                return true;
+            }else{
+                return false;
+            }
         }catch{
             return false;
         }
@@ -71,7 +87,7 @@ public class QueueController : MonoBehaviour
     void Start()
     {
         CurrentCombatRounds=CombatRounds;
-        InvokeRepeating("CompleteCombatRound", 1, 1);
+        UpdateCombatStatus(true);
     }
 
     // Update is called once per frame

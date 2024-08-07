@@ -14,12 +14,20 @@ public class HUDController : MonoBehaviour
     //-----------------
     public Slider PlayerCharacterHPSlider;
     public Slider PlayerCharacterAPSlider;
+    public TMP_Text TimerText;  
     //event dispatchers go here
     //methods go here
+    private void UpdateTimerText(int CurrentCombatRounds){
+        TimerText.SetText(CurrentCombatRounds.ToString());
+    }
     public void UpdatePlayerCharacterNextAction(int NextAction){
         if(GameManagerScript!=null){
             GameManagerScript.UpdateCombatManageerQueue(PlayerCharacter, NextAction);
         }
+    }
+    private void HandleOnCompletedRound(int CurrentCombatRounds){
+        Debug.Log("Round Has Been Completed");
+        UpdateTimerText(CurrentCombatRounds);
     }
     private void HandleHealthDecreased(int CurrentValue, int MaxValue, float DeltaKoef){
         Debug.Log("Health Points Decreased");
@@ -70,6 +78,12 @@ public class HUDController : MonoBehaviour
             } 
         }
         GameManagerScript = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        var CombatQueueController = GameObject.FindWithTag("CombatManager").GetComponent<QueueController>(); 
+        if(CombatQueueController!=null){
+            CombatQueueController.OnRoundCompleted += HandleOnCompletedRound;
+        }else{
+            Debug.Log("CombatQueueController=null");
+        }
     }
 
     // Update is called once per frame

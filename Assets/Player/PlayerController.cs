@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     //methods go here
     private void HandleHealthDecreased(int CurrentValue, int MaxValue, float DeltaKoef){
         if(!(CurrentValue>PlayerCharacterHP.MinValue)){
+            Debug.Log("Game Over");
             Destroy(gameObject);
         }
     }
