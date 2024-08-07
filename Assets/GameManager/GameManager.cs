@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
         }
     }
     private void HandleOnCompletedRound(int CurrentCombatRounds){
-        if(!(CurrentCombatRounds>0)){
+        if(CurrentCombatRounds==0){
             CombatManager.GetComponent<QueueController>().UpdateCombatStatus(false);
             PlayerCharacterHP.DecreaseHealth(999);
         }

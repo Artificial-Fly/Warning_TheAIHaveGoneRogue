@@ -18,7 +18,11 @@ public class HUDController : MonoBehaviour
     //event dispatchers go here
     //methods go here
     private void UpdateTimerText(int CurrentCombatRounds){
-        TimerText.SetText(CurrentCombatRounds.ToString());
+        if(CurrentCombatRounds<0){
+            TimerText.SetText("99");
+        }else{
+            TimerText.SetText(CurrentCombatRounds.ToString());
+        }
     }
     public void UpdatePlayerCharacterNextAction(int NextAction){
         if(GameManagerScript!=null){

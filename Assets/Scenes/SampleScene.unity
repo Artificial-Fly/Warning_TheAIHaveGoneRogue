@@ -1736,6 +1736,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 327452886}
   m_CullTransparentMesh: 1
+--- !u!1 &331994573 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6377273847571414261, guid: 595d4759346041a419fb983b10013c61, type: 3}
+  m_PrefabInstance: {fileID: 332327032237219242}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &331994578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331994573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ca241beb9eddd4b816fbcabd065ab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpLimit: 35
+  DownLimit: -35
+  LeftLimit: -35
+  RightLimit: 35
+  ActorMoveRange: 10
 --- !u!1 &333144240
 GameObject:
   m_ObjectHideFlags: 0
@@ -8750,7 +8772,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6377273847571414261, guid: 595d4759346041a419fb983b10013c61, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 331994578}
   m_SourcePrefab: {fileID: 100100000, guid: 595d4759346041a419fb983b10013c61, type: 3}
 --- !u!1001 &2256509133368286528
 PrefabInstance:
@@ -8929,6 +8954,10 @@ PrefabInstance:
     - target: {fileID: 5659150537649801671, guid: 35f294b96bbba744883b306dfc58abe5, type: 3}
       propertyPath: m_Name
       value: CombatManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7041414212991170438, guid: 35f294b96bbba744883b306dfc58abe5, type: 3}
+      propertyPath: CombatRounds
+      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

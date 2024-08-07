@@ -45,28 +45,24 @@ public class QueueController : MonoBehaviour
                     Debug.Log("Idle Action");
                     //return true;
                 }else if(Actor.Value==1){
-                    //up
-                    Debug.Log("Up Action");
-                    Actor.Key.transform.Translate(0,10,0);
+                    //upt
+                    Actor.Key.GetComponent<ActorActions>().MoveUP();
                     //return true;
                 }else if(Actor.Value==2){
-                    //down
-                    Debug.Log("Down Action");
-                    Actor.Key.transform.Translate(0,-10,0);
+                    //downt
+                    Actor.Key.GetComponent<ActorActions>().MoveDOWN();
                     //return true;
                 }else if(Actor.Value==3){
                     //left
-                    Debug.Log("Left Action");
-                    Actor.Key.transform.Translate(-10,0,0);
+                    Actor.Key.GetComponent<ActorActions>().MoveLEFT();
                     //return true;
                 }else if(Actor.Value==4){
                     //right
-                    Debug.Log("Right Action");
-                    Actor.Key.transform.Translate(10,0,0);
+                    Actor.Key.GetComponent<ActorActions>().MoveRIGHT();
                     //return true;
                 }else if(Actor.Value==5){
                     //attack
-                    Debug.Log("Attack Action");
+                    Actor.Key.GetComponent<ActorActions>().Attack();
                     //return true;
                 }
             }
