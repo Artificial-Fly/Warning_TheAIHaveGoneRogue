@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActorActions : MonoBehaviour
+public class ActorActionsBase : MonoBehaviour
 {
     //variables go here
     public GameObject ActorSenses;
@@ -47,9 +47,6 @@ public class ActorActions : MonoBehaviour
             transform.Translate(ActorMoveRange,0,0);
         }
     }
-    public void Attack(){
-        Debug.Log("Attack");
-    }
     public void Heal(int Amount=10){
         try{
             transform.gameObject.GetComponent<HealthPoints>().IncreaseHealth(Amount);
@@ -76,7 +73,7 @@ public class ActorActions : MonoBehaviour
     void Start()
     {
         try{
-            ActorSenses.GetComponent<ActorSensesController>().OnSensesTriggered+= HandleOnSensesTriggered;
+            ActorSenses.GetComponent<ActorSensesBase>().OnSensesTriggered+= HandleOnSensesTriggered;
             Debug.Log("Successfuly located ActorSenses component, listening now..");
         }catch{
             Debug.Log("Failed to locate ActorSenses component..");

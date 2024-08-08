@@ -14,7 +14,7 @@ public class HUDController : MonoBehaviour
     //-----------------
     public Slider PlayerCharacterHPSlider;
     public Slider PlayerCharacterAPSlider;
-    public TMP_Text TimerText;  
+    public TMP_Text TimerText, HealthPointsText;  
     //event dispatchers go here
     //methods go here
     private void UpdateTimerText(int CurrentCombatRounds){
@@ -36,14 +36,16 @@ public class HUDController : MonoBehaviour
     private void HandleHealthDecreased(int CurrentValue, int MaxValue, float DeltaKoef){
         Debug.Log("Health Points Decreased");
         if(PlayerCharacterHPSlider!=null){
-            PlayerCharacterHPSlider.value = DeltaKoef;
+            //PlayerCharacterHPSlider.value = DeltaKoef;
+            HealthPointsText.SetText(CurrentValue.ToString());
             Debug.Log(DeltaKoef.ToString());
         } 
     }
     private void HandleHealthIncreased(int CurrentValue, int MaxValue, float DeltaKoef){
         Debug.Log("Health Points Increased");
         if(PlayerCharacterHPSlider!=null){
-            PlayerCharacterHPSlider.value = DeltaKoef;
+            //PlayerCharacterHPSlider.value = DeltaKoef;
+            HealthPointsText.SetText(CurrentValue.ToString());
             Debug.Log(DeltaKoef.ToString());
         } 
     }

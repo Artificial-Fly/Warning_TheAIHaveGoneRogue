@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActorHitboxController : MonoBehaviour
+public class ActorHitboxBase : MonoBehaviour
 {
     //variables go here
     //-----------------
@@ -13,13 +13,13 @@ public class ActorHitboxController : MonoBehaviour
         if(other.gameObject.tag.Substring(0,6)=="Pickup"){
             Debug.Log("Trying to start pickup effect..");
                 try{
-                    var CurrentActorActions = transform.parent.GetComponent<ActorActions>();
+                    var CurrentActorActions = transform.parent.GetComponent<ActorActionsBase>();
                     if(other.gameObject.tag.Substring(7)=="Heal"){
                         Debug.Log("Trying Heal effect");
                         CurrentActorActions.Heal(3);
                     }else if(other.gameObject.tag.Substring(7)=="Timer"){
                         Debug.Log("Trying Timer effect");
-                        CurrentActorActions.Timer(10);
+                        CurrentActorActions.Timer(3);
                     }else if(other.gameObject.tag.Substring(7)=="Trap"){
                         Debug.Log("Trying Trap effect");
                         Debug.Log("Caught in the Trap!");

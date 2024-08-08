@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActorSensesController : MonoBehaviour
+public class ActorSensesBase : MonoBehaviour
 {
     //variables go here
     bool UpSense, DownSense, LeftSense, RightSense;

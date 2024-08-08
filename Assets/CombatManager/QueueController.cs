@@ -17,7 +17,7 @@ public class QueueController : MonoBehaviour
     //methods go here
     public void AddCombatRounds(int Amount){
         if(Amount>0){
-            CurrentCombatRounds+=CurrentCombatRounds+Amount;
+            CurrentCombatRounds+=Amount;
             if(OnRoundCompleted!=null){
                 OnRoundCompleted(CurrentCombatRounds);
                 Debug.Log("Add Combat Rounds");
@@ -55,23 +55,23 @@ public class QueueController : MonoBehaviour
                     //return true;
                 }else if(Actor.Value==1){
                     //upt
-                    Actor.Key.GetComponent<ActorActions>().MoveUP();
+                    Actor.Key.GetComponent<ActorActionsBase>().MoveUP();
                     //return true;
                 }else if(Actor.Value==2){
                     //downt
-                    Actor.Key.GetComponent<ActorActions>().MoveDOWN();
+                    Actor.Key.GetComponent<ActorActionsBase>().MoveDOWN();
                     //return true;
                 }else if(Actor.Value==3){
                     //left
-                    Actor.Key.GetComponent<ActorActions>().MoveLEFT();
+                    Actor.Key.GetComponent<ActorActionsBase>().MoveLEFT();
                     //return true;
                 }else if(Actor.Value==4){
                     //right
-                    Actor.Key.GetComponent<ActorActions>().MoveRIGHT();
+                    Actor.Key.GetComponent<ActorActionsBase>().MoveRIGHT();
                     //return true;
                 }else if(Actor.Value==5){
                     //attack
-                    Actor.Key.GetComponent<ActorActions>().Attack();
+                    //Actor.Key.GetComponent<ActorActionsBase>().Attack();
                     //return true;
                 }
             }
