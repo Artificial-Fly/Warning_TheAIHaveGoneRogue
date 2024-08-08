@@ -7,30 +7,41 @@ public class ActorActions : MonoBehaviour
     //variables go here
     public int UpLimit=35, DownLimit=-35, LeftLimit=-35, RightLimit=35;
     public int ActorMoveRange = 10;
+    bool CurrentUpStatus, CurrentDownStatus, CurrentLeftStatus, CurrentRightStatus;
+    string CurrentTriggeredActorTag;
+    int CurrentTriggeredActorSense;
     //-----------------
     //event dispatchers go here
     //-----------------
     //methods go here
+    private void HandleOnSensesTriggered(bool UpSense, bool DownSense, bool LeftSense, bool RightSense, string LastTriggeredActorTag, int lastTriggeredActorSense){
+        CurrentUpStatus = UpSense;
+        CurrentDownStatus = DownSense;
+        CurrentLeftStatus = LeftSense;
+        CurrentRightStatus = RightSense;
+        CurrentTriggeredActorTag = LastTriggeredActorTag;
+        CurrentTriggeredActorSense = lastTriggeredActorSense;
+    }
     public void MoveUP(){
-        if(transform.position.y+ActorMoveRange<=UpLimit){
+        if(transform.position.y+ActorMoveRange<=UpLimit && !CurrentUpStatus){
             Debug.Log("Up");
             transform.Translate(0,ActorMoveRange,0);
         }
     }
     public void MoveDOWN(){
-        if(transform.position.y-ActorMoveRange>=DownLimit){
+        if(transform.position.y-ActorMoveRange>=DownLimit && !CurrentDownStatus){
             Debug.Log("Down");
             transform.Translate(0,-ActorMoveRange,0);
         }
     }
     public void MoveLEFT(){
-        if(transform.position.x-ActorMoveRange>=LeftLimit){
+        if(transform.position.x-ActorMoveRange>=LeftLimit && !CurrentLeftStatus){
             Debug.Log("Left");
             transform.Translate(-ActorMoveRange,0,0);
         }
     }
     public void MoveRIGHT(){
-        if(transform.position.x+ActorMoveRange<=RightLimit){
+        if(transform.position.x+ActorMoveRange<=RightLimit  && !CurrentRightStatus){
             Debug.Log("Right");
             transform.Translate(ActorMoveRange,0,0);
         }
@@ -42,7 +53,12 @@ public class ActorActions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        try{
+            transform.Find("ActorSenses").GetComponent<ActorSensesController>().OnSensesTriggered+= HandleOnSensesTriggered;
+            Debug.Log("Successfuly located ActorSenses component, listening now..");
+        }catch{
+            Debug.Log("Failed to locate ActorSenses component..");
+        }
     }
 
     // Update is called once per frame
