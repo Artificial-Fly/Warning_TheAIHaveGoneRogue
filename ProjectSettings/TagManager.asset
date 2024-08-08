@@ -9,6 +9,10 @@ TagManager:
   - HUDManager
   - CombatManager
   - GameManager
+  - Obstacle
+  - Pickup_Heal
+  - Pickup_Timer
+  - Pickup_Trap
   layers:
   - Default
   - TransparentFX

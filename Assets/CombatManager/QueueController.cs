@@ -15,6 +15,15 @@ public class QueueController : MonoBehaviour
     public event RoundCompleted OnRoundCompleted;
     //-----------------
     //methods go here
+    public void AddCombatRounds(int Amount){
+        if(Amount>0){
+            CurrentCombatRounds+=CurrentCombatRounds+Amount;
+            if(OnRoundCompleted!=null){
+                OnRoundCompleted(CurrentCombatRounds);
+                Debug.Log("Add Combat Rounds");
+            }
+        }
+    }
     public void UpdateCombatStatus(bool IsCombatStarted){
         if(IsCombatStarted){
             InvokeRepeating("CompleteCombatRound", 0.5f, 1);

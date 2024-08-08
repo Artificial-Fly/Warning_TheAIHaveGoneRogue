@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     //variables go here
     private GameObject PlayerCharacter, CombatManager, HUDManager;
     private HealthPoints PlayerCharacterHP;
-    private ActionPoints PlayerCharacterAP;
+    //private ActionPoints PlayerCharacterAP;
     //-----------------
     //event dispatchers go here
     //methods go here
@@ -18,6 +18,11 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
+    public void AddGameplayTime(int Amount){
+        if(CombatManager.GetComponent<QueueController>()!=null){
+            CombatManager.GetComponent<QueueController>().AddCombatRounds(Amount);
+        }
+    }
     private void HandleOnCompletedRound(int CurrentCombatRounds){
         if(CurrentCombatRounds==0){
             CombatManager.GetComponent<QueueController>().UpdateCombatStatus(false);
@@ -26,24 +31,24 @@ public class GameManager : MonoBehaviour
     }
     private void HandleHealthDecreased(int CurrentValue, int MaxValue, float DeltaKoef){}
     private void HandleHealthIncreased(int CurrentValue, int MaxValue, float DeltaKoef){}
-    private void HandleActionDecreased(int CurrentValue, int MaxValue, float DeltaKoef){}
-    private void HandleActionReset(int CurrentValue, int MaxValue, float DeltaKoef){}
+    /*private void HandleActionDecreased(int CurrentValue, int MaxValue, float DeltaKoef){}
+    private void HandleActionReset(int CurrentValue, int MaxValue, float DeltaKoef){}*/
     // Start is called before the first frame update
     void Start()
     {
         PlayerCharacter = GameObject.FindWithTag("PlayerCharacter");
         PlayerCharacterHP = GameObject.FindWithTag("PlayerCharacter").GetComponent<HealthPoints>();
-        PlayerCharacterAP = GameObject.FindWithTag("PlayerCharacter").GetComponent<ActionPoints>();
+        //PlayerCharacterAP = GameObject.FindWithTag("PlayerCharacter").GetComponent<ActionPoints>();
         if(PlayerCharacter==null){
             Debug.Log("Can't find PlayerCharacter");
         }else{
-            if(PlayerCharacterHP==null || PlayerCharacterAP == null){
+            if(PlayerCharacterHP==null /*|| PlayerCharacterAP == null*/){
             Debug.Log("Can't find PlayerCharacter's entity resources");
-            }else if (PlayerCharacterHP!=null && PlayerCharacterAP != null){
+            }else if (PlayerCharacterHP!=null /*&& PlayerCharacterAP != null*/){
                 PlayerCharacterHP.OnHealthDecreased += HandleHealthDecreased;
                 PlayerCharacterHP.OnHealthIncreased += HandleHealthIncreased;
-                PlayerCharacterAP.OnActionDecreased += HandleActionDecreased;
-                PlayerCharacterAP.OnActionReset += HandleActionReset;
+                /*PlayerCharacterAP.OnActionDecreased += HandleActionDecreased;
+                PlayerCharacterAP.OnActionReset += HandleActionReset;*/
             } 
         }
         //-----------------

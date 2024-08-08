@@ -9,7 +9,7 @@ public class HUDController : MonoBehaviour
     //variables go here
     private GameObject PlayerCharacter;
     private HealthPoints PlayerCharacterHP;
-    private ActionPoints PlayerCharacterAP;
+    //private ActionPoints PlayerCharacterAP;
     private GameManager GameManagerScript;
     //-----------------
     public Slider PlayerCharacterHPSlider;
@@ -47,7 +47,7 @@ public class HUDController : MonoBehaviour
             Debug.Log(DeltaKoef.ToString());
         } 
     }
-    private void HandleActionDecreased(int CurrentValue, int MaxValue, float DeltaKoef){
+    /*private void HandleActionDecreased(int CurrentValue, int MaxValue, float DeltaKoef){
         Debug.Log("Action Points Decreased");
         if(PlayerCharacterAPSlider!=null){
             PlayerCharacterAPSlider.value = DeltaKoef;
@@ -60,24 +60,24 @@ public class HUDController : MonoBehaviour
             PlayerCharacterAPSlider.value = DeltaKoef;
             Debug.Log(DeltaKoef.ToString());
         } 
-    }
+    }*/
 
     // Start is called before the first frame update
     void Start()
     {
         PlayerCharacter = GameObject.FindWithTag("PlayerCharacter");
         PlayerCharacterHP = GameObject.FindWithTag("PlayerCharacter").GetComponent<HealthPoints>();
-        PlayerCharacterAP = GameObject.FindWithTag("PlayerCharacter").GetComponent<ActionPoints>();
+        //PlayerCharacterAP = GameObject.FindWithTag("PlayerCharacter").GetComponent<ActionPoints>();
         if(PlayerCharacter==null){
             Debug.Log("Can't find PlayerCharacter");
         }else{
-            if(PlayerCharacterHP==null || PlayerCharacterAP == null){
+            if(PlayerCharacterHP==null /*|| PlayerCharacterAP == null*/){
             Debug.Log("Can't find PlayerCharacter's entity resources");
-            }else if (PlayerCharacterHP!=null && PlayerCharacterAP != null){
+            }else if (PlayerCharacterHP!=null /*&& PlayerCharacterAP != null*/){
                 PlayerCharacterHP.OnHealthDecreased += HandleHealthDecreased;
                 PlayerCharacterHP.OnHealthIncreased += HandleHealthIncreased;
-                PlayerCharacterAP.OnActionDecreased += HandleActionDecreased;
-                PlayerCharacterAP.OnActionReset += HandleActionReset;
+                //PlayerCharacterAP.OnActionDecreased += HandleActionDecreased;
+                //PlayerCharacterAP.OnActionReset += HandleActionReset;
                 Debug.Log("HUD is listening to PlayerCharacter's Stats..");
             } 
         }

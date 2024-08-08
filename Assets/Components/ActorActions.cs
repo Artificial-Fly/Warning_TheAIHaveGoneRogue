@@ -5,6 +5,7 @@ using UnityEngine;
 public class ActorActions : MonoBehaviour
 {
     //variables go here
+    public GameObject ActorSenses;
     public int UpLimit=35, DownLimit=-35, LeftLimit=-35, RightLimit=35;
     public int ActorMoveRange = 10;
     bool CurrentUpStatus, CurrentDownStatus, CurrentLeftStatus, CurrentRightStatus;
@@ -49,12 +50,33 @@ public class ActorActions : MonoBehaviour
     public void Attack(){
         Debug.Log("Attack");
     }
+    public void Heal(int Amount=10){
+        try{
+            transform.gameObject.GetComponent<HealthPoints>().IncreaseHealth(Amount);
+        }catch{
+            Debug.Log("Error: Couldn't Use Heal Pickup Effect");
+        }
+    }
+    public void Timer(int Amount=5){
+        try{
+            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().AddGameplayTime(Amount);
+        }catch{
+            Debug.Log("Error: Couldn't Use AddTime Pickup Effect");
+        }
+    }
+    public void Trap(int Amount=10){
+        try{
+            transform.gameObject.GetComponent<HealthPoints>().DecreaseHealth(Amount);
+        }catch{
+            Debug.Log("Error: Couldn't Use Trap Pickup Effect");
+        }
+    }
     //-----------------
     // Start is called before the first frame update
     void Start()
     {
         try{
-            transform.Find("ActorSenses").GetComponent<ActorSensesController>().OnSensesTriggered+= HandleOnSensesTriggered;
+            ActorSenses.GetComponent<ActorSensesController>().OnSensesTriggered+= HandleOnSensesTriggered;
             Debug.Log("Successfuly located ActorSenses component, listening now..");
         }catch{
             Debug.Log("Failed to locate ActorSenses component..");

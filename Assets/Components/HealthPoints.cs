@@ -15,7 +15,8 @@ public class HealthPoints : MonoBehaviour
     public event HealthIncreased OnHealthIncreased;
     //methods go here
     public bool DecreaseHealth(int Amount){
-        //Debug.Log("DecreaseHealth start");
+        //
+        Debug.Log("DecreaseHealth start");
         bool success = false;
         if(Amount>0){
             if((CurrentValue-Amount)>MinValue){
@@ -69,6 +70,16 @@ public class HealthPoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        /*if(CurrentValue>MaxValue){
+            CurrentValue=MaxValue;
+            if (OnHealthIncreased != null){
+                    OnHealthIncreased(CurrentValue, MaxValue, DeltaKoef());
+            }
+        }else if(CurrentValue<MinValue){
+            CurrentValue=MinValue;
+            if (OnHealthDecreased != null){
+                    OnHealthDecreased(CurrentValue, MaxValue, DeltaKoef());
+            }
+        }*/
     }
 }
