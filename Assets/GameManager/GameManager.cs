@@ -6,18 +6,25 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     //variables go here
+    private int CurrentGameState = 1;//-1=GameOver, 0=Pause, 1=GamePlay
     private GameObject PlayerCharacter, CombatManager, HUDManager;
     private HealthPoints PlayerCharacterHP;
-    public string NextLevelName;
+    public string NextLevelName, FirstLevelName;
     //private ActionPoints PlayerCharacterAP;
     //-----------------
     //event dispatchers go here
+    public delegate void GameStateChanged(int CurrentGameState, int OldGameState);
+    public event GameStateChanged OnGameStateChanged;
+    //-----------------
     //methods go here
-    public void RestartLevel(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    public void RestartGame(){
+        SceneManager.LoadScene(FirstLevelName);
     }
     public void NextLevel(){
         SceneManager.LoadScene(NextLevelName);
+    }
+    public void MainMenu(){
+        SceneManager.LoadScene("MainMenu");
     }
     //-----------------
     public bool UpdateCombatManageerQueue(GameObject TargetActor, int NextAction){
@@ -32,8 +39,30 @@ public class GameManager : MonoBehaviour
             CombatManager.GetComponent<QueueController>().AddCombatRounds(Amount);
         }
     }
-    private void HandleOnCompletedRound(int CurrentCombatRounds){
+    //----------------
+    public void ChangeGameState(int NewGameState){
+        if(NewGameState>-2 && NewGameState<2 && CurrentGameState!=-1){
+            Debug.Log("Changing Game State..");
+            var OldGameState = CurrentGameState;
+            CurrentGameState = NewGameState;
+            if(CurrentGameState==1){
+                CombatManager.GetComponent<QueueController>().UpdateCombatStatus(true);
+            }else{
+                CombatManager.GetComponent<QueueController>().UpdateCombatStatus(false);
+            }
+            if(OnGameStateChanged!=null){
+                OnGameStateChanged(CurrentGameState, OldGameState);
+                Debug.Log("Changing Game State Has Been Completed");
+            }else{
+                Debug.Log("Changing Game State Has Been Failed, OnGameStateChanged==null");
+            }
+        }else{
+
+        }
+    }
+    private void HandleCompletedRound(int CurrentCombatRounds){
         if(CurrentCombatRounds==0){
+            ChangeGameState(-1);
             CombatManager.GetComponent<QueueController>().UpdateCombatStatus(false);
             PlayerCharacterHP.DecreaseHealth(999);
         }
@@ -64,7 +93,7 @@ public class GameManager : MonoBehaviour
         CombatManager = GameObject.FindWithTag("CombatManager");
         if(CombatManager!=null){
             Debug.Log("Player Character CombatQueue Status: "+UpdateCombatManageerQueue(PlayerCharacter, 0).ToString());
-            CombatManager.GetComponent<QueueController>().OnRoundCompleted += HandleOnCompletedRound;
+            CombatManager.GetComponent<QueueController>().OnRoundCompleted += HandleCompletedRound;
         }
     }
 

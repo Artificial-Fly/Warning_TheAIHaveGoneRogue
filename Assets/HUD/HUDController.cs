@@ -8,15 +8,61 @@ public class HUDController : MonoBehaviour
 {
     //variables go here
     private GameObject PlayerCharacter;
+    public GameObject ControlPanel_PAUSED_OVER,ControlPanel_UNPAUSED, TimerDisplay, HealthPointsDisplay;
     private HealthPoints PlayerCharacterHP;
     //private ActionPoints PlayerCharacterAP;
     private GameManager GameManagerScript;
     //-----------------
     public Slider PlayerCharacterHPSlider;
     public Slider PlayerCharacterAPSlider;
-    public TMP_Text TimerText, HealthPointsText;  
+    public TMP_Text TimerText, HealthPointsText, GameOverText;  
     //event dispatchers go here
     //methods go here
+    public void MainMenu(){
+        if(GameManagerScript!=null){
+            GameManagerScript.MainMenu();
+        }
+    }
+    public void RestartGame(){
+        if(GameManagerScript!=null){
+            GameManagerScript.RestartGame();
+        }
+    }
+    public void PauseGame(){
+        try{
+            if(GameManagerScript!=null){
+                GameManagerScript.ChangeGameState(0);
+            }else{
+                Debug.Log("Error: GameManagerScript==null");
+                GameManagerScript = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+                if(GameManagerScript!=null){
+                    GameManagerScript.OnGameStateChanged+=HandleGameStateChanged;
+                    Debug.Log("HUD Is Now Listening to Game State's Changeds in GameManager Script");
+                    GameManagerScript.ChangeGameState(0);
+                }
+            }
+        }catch{
+            Debug.Log("Failed to PauseGame");
+        }
+    }
+    public void UnPauseGame(){
+        try{
+            if(GameManagerScript!=null){
+                GameManagerScript.ChangeGameState(1);
+            }else{
+                Debug.Log("Error: GameManagerScript==null");
+                GameManagerScript = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+                if(GameManagerScript!=null){
+                    GameManagerScript.OnGameStateChanged+=HandleGameStateChanged;
+                    Debug.Log("HUD Is Now Listening to Game State's Changeds in GameManager Script");
+                    GameManagerScript.ChangeGameState(1);
+                }
+            }
+        }catch{
+            Debug.Log("Failed to UnPauseGame");
+        }
+    }
+    //---------------
     private void UpdateTimerText(int CurrentCombatRounds){
         if(CurrentCombatRounds<0){
             TimerText.SetText("99");
@@ -27,6 +73,32 @@ public class HUDController : MonoBehaviour
     public void UpdatePlayerCharacterNextAction(int NextAction){
         if(GameManagerScript!=null){
             GameManagerScript.UpdateCombatManageerQueue(PlayerCharacter, NextAction);
+        }
+    }
+    private void HandleGameStateChanged(int CurrentGameState, int OldGameState){
+        if(CurrentGameState==1){
+            Debug.Log("Game State is Unpaused");
+            ControlPanel_PAUSED_OVER.gameObject.SetActive(false);
+            ControlPanel_UNPAUSED.gameObject.SetActive(true);
+            //--------------
+            TimerDisplay.gameObject.SetActive(true);
+            HealthPointsDisplay.gameObject.SetActive(true);
+        }else if(CurrentGameState==0){
+            Debug.Log("Game State is Paused");
+            GameOverText.SetText("Pause");//gameObject.SetActive(false);
+            ControlPanel_PAUSED_OVER.gameObject.SetActive(true);
+            ControlPanel_UNPAUSED.gameObject.SetActive(false);
+            //--------------
+            TimerDisplay.gameObject.SetActive(true);
+            HealthPointsDisplay.gameObject.SetActive(true);
+        }else if(CurrentGameState==-1){
+            Debug.Log("Game State is GameOver");
+            GameOverText.SetText("Game Over");//gameObject.SetActive(true);
+            ControlPanel_PAUSED_OVER.gameObject.SetActive(true);
+            ControlPanel_UNPAUSED.gameObject.SetActive(false);
+            //--------------
+            TimerDisplay.gameObject.SetActive(false);
+            HealthPointsDisplay.gameObject.SetActive(false);
         }
     }
     private void HandleOnCompletedRound(int CurrentCombatRounds){
@@ -84,12 +156,17 @@ public class HUDController : MonoBehaviour
             } 
         }
         GameManagerScript = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        if(GameManagerScript!=null){
+            GameManagerScript.OnGameStateChanged+=HandleGameStateChanged;
+            Debug.Log("HUD Is Now Listening to Game State's Changeds in GameManager Script");
+        }
         var CombatQueueController = GameObject.FindWithTag("CombatManager").GetComponent<QueueController>(); 
         if(CombatQueueController!=null){
             CombatQueueController.OnRoundCompleted += HandleOnCompletedRound;
         }else{
             Debug.Log("CombatQueueController=null");
         }
+        UnPauseGame();
     }
 
     // Update is called once per frame

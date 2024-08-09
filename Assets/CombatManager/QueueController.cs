@@ -9,6 +9,7 @@ public class QueueController : MonoBehaviour
     private Dictionary<GameObject, int> ActorsDictionary = new Dictionary<GameObject, int>();
     //-----------------
     public int CombatRounds=10;
+    public float StartCombatDelay=0.5f, CombatRoundDuration=1.1f;
     private int CurrentCombatRounds;
     //-----------------
     //event dispatchers go here
@@ -27,7 +28,7 @@ public class QueueController : MonoBehaviour
     }
     public void UpdateCombatStatus(bool IsCombatStarted){
         if(IsCombatStarted){
-            InvokeRepeating("CompleteCombatRound", 0.5f, 1);
+            InvokeRepeating("CompleteCombatRound", StartCombatDelay, CombatRoundDuration);
         }else{
             CancelInvoke();
         }

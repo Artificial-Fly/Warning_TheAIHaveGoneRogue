@@ -14,7 +14,7 @@ public class DoorController : MonoBehaviour
             //
             Debug.Log("Onto the next level we go..");
             try{
-                GameObject.FindWithTag("GameManager").GetComponent<GameManager>().RestartLevel();
+                GameObject.FindWithTag("GameManager").GetComponent<GameManager>().NextLevel();
             }catch{
                 Debug.Log("Failed to go onto the next level!");
             }
