@@ -1,16 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     //variables go here
     private GameObject PlayerCharacter, CombatManager, HUDManager;
     private HealthPoints PlayerCharacterHP;
+    public string NextLevelName;
     //private ActionPoints PlayerCharacterAP;
     //-----------------
     //event dispatchers go here
     //methods go here
+    public void RestartLevel(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void NextLevel(){
+        SceneManager.LoadScene(NextLevelName);
+    }
+    //-----------------
     public bool UpdateCombatManageerQueue(GameObject TargetActor, int NextAction){
         if(CombatManager.GetComponent<QueueController>()!=null){
             return CombatManager.GetComponent<QueueController>().UpdateActorsDictionary(TargetActor, NextAction);

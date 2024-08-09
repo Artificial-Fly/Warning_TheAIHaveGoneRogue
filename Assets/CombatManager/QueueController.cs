@@ -5,6 +5,7 @@ using UnityEngine;
 public class QueueController : MonoBehaviour
 {
     //variables go here
+    public string CurrentScene, NextScene;
     private Dictionary<GameObject, int> ActorsDictionary = new Dictionary<GameObject, int>();
     //-----------------
     public int CombatRounds=10;

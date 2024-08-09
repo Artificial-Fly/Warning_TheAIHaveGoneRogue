@@ -13,6 +13,7 @@ TagManager:
   - Pickup_Heal
   - Pickup_Timer
   - Pickup_Trap
+  - Goal
   layers:
   - Default
   - TransparentFX

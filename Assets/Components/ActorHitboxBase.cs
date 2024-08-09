@@ -10,7 +10,9 @@ public class ActorHitboxBase : MonoBehaviour
     //-----------------
     //methods go here
     private void OnTriggerEnter(Collider other){
-        if(other.gameObject.tag.Substring(0,6)=="Pickup"){
+        if(other.gameObject.tag=="Goal"){
+            Debug.Log("Player Has Reached The Goal!");
+        }else if(other.gameObject.tag.Substring(0,6)=="Pickup"){
             Debug.Log("Trying to start pickup effect..");
                 try{
                     var CurrentActorActions = transform.parent.GetComponent<ActorActionsBase>();
