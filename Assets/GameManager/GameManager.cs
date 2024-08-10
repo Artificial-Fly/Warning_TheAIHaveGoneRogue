@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
         if(CombatManager!=null){
             Debug.Log("Player Character CombatQueue Status: "+UpdateCombatManageerQueue(PlayerCharacter, 0).ToString());
             CombatManager.GetComponent<QueueController>().OnRoundCompleted += HandleCompletedRound;
+            CombatManager.GetComponent<QueueController>().UpdateCombatStatus(true);
         }
     }
 

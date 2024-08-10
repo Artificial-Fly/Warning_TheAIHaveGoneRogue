@@ -27,7 +27,7 @@ public class QueueController : MonoBehaviour
         }
     }
     public void UpdateCombatStatus(bool IsCombatStarted){
-        if(IsCombatStarted){
+        if(IsCombatStarted && !IsInvoking("CompleteCombatRound")){
             InvokeRepeating("CompleteCombatRound", StartCombatDelay, CombatRoundDuration);
         }else{
             CancelInvoke();
@@ -50,7 +50,7 @@ public class QueueController : MonoBehaviour
     public bool CompleteCombatRound(){
         try{
             foreach(var Actor in ActorsDictionary){
-                Debug.Log(Actor.Key.ToString()+" initiates "+Actor.Value.ToString());
+                //Debug.Log(Actor.Key.ToString()+" initiates "+Actor.Value.ToString());
                 if(Actor.Value==0){
                     //idle
                     Debug.Log("Idle Action");
@@ -80,7 +80,7 @@ public class QueueController : MonoBehaviour
             if(OnRoundCompleted!=null){
                 CurrentCombatRounds--;
                 OnRoundCompleted(CurrentCombatRounds);
-                Debug.Log("Completed");
+                //Debug.Log("Completed");
                 return true;
             }else{
                 return false;

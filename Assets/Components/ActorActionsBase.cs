@@ -27,24 +27,32 @@ public class ActorActionsBase : MonoBehaviour
         if(transform.position.y+ActorMoveRange<=UpLimit && !CurrentUpStatus){
             Debug.Log("Up");
             transform.Translate(0,ActorMoveRange,0);
+        }else{
+            Debug.Log("Action Failed..");
         }
     }
     public void MoveDOWN(){
         if(transform.position.y-ActorMoveRange>=DownLimit && !CurrentDownStatus){
             Debug.Log("Down");
             transform.Translate(0,-ActorMoveRange,0);
+        }else{
+            Debug.Log("Action Failed..");
         }
     }
     public void MoveLEFT(){
         if(transform.position.x-ActorMoveRange>=LeftLimit && !CurrentLeftStatus){
             Debug.Log("Left");
             transform.Translate(-ActorMoveRange,0,0);
+        }else{
+            Debug.Log("Action Failed..");
         }
     }
     public void MoveRIGHT(){
         if(transform.position.x+ActorMoveRange<=RightLimit  && !CurrentRightStatus){
             Debug.Log("Right");
             transform.Translate(ActorMoveRange,0,0);
+        }else{
+            Debug.Log("Action Failed..");
         }
     }
     public void Heal(int Amount=10){

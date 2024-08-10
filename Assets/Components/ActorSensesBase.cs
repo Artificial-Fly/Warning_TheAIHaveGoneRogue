@@ -20,7 +20,7 @@ public class ActorSensesBase : MonoBehaviour
         if(other.gameObject.tag=="Goal"){
             //Goal Ahead?
             Debug.Log("Goal Ahead");
-        }else if(other.gameObject.tag.Substring(0,6)!="Pickup"){//pickups' tags: Pickup_Heal, Pickup_Timer, Pickup_Trap,
+        }else if(other.gameObject.tag.Substring(0,6)!="Pickup" && other.gameObject.tag!="Senses"){//pickups' tags: Pickup_Heal, Pickup_Timer, Pickup_Trap,
                 if(OtherActorLocation.x>CurrentActorLocation.x){RightSense=true;CurrentTriggeredSense = 1;}
                 if(OtherActorLocation.x<CurrentActorLocation.x){LeftSense=true;CurrentTriggeredSense = 2;}
                 if(OtherActorLocation.y>CurrentActorLocation.y){UpSense=true;CurrentTriggeredSense = 3;}
