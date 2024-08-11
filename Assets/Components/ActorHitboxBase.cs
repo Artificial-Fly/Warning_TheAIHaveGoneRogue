@@ -12,10 +12,38 @@ public class ActorHitboxBase : MonoBehaviour
     private void OnTriggerEnter(Collider other){
         if(other.gameObject.tag=="Goal" && transform.parent.tag=="PlayerCharacter"){
             Debug.Log("Player Has Reached The Goal!");
-        }else if(other.gameObject.tag.Substring(0,6)=="Pickup"){
+        }else {
+            //var CurrentActorPickupEffects = transform.parent.GetComponent<ActorPickupEffects>();
+            Debug.Log("++CHECK OTHER ACTOR RESOURCES++");
+            var OtherActorResources = other.gameObject.GetComponents<ActorResourse>();
+            for(int i = 0; i < OtherActorResources.Length; i++){
+                if(OtherActorResources[i].GetType()=="AddTime"){
+                    //Add Combat Rounds
+                    if(transform.parent.tag=="PlayerCharacter"){
+                            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().AddGameplayTime(OtherActorResources[i].GetValue());
+                            Destroy(other.gameObject);
+                    }
+                }else if(OtherActorResources[i].GetType()=="Heal"){
+                    //Increase Health
+                    if(transform.parent.tag=="PlayerCharacter"){
+                        transform.parent.gameObject.GetComponent<HealthPoints>().IncreaseHealth(OtherActorResources[i].GetValue());
+                        Destroy(other.gameObject);
+                    }
+                }else if(OtherActorResources[i].GetType()=="DealDamage"){
+                    //Add Decrease Health
+                    transform.parent.GetComponent<HealthPoints>().DecreaseHealth(OtherActorResources[i].GetValue());
+                    Destroy(other.gameObject);
+                }else{
+                    //
+                    Debug.Log("Error, Cannot apply any effect: Unknown Actor Resource Type!!!");
+                }
+            }
+        }
+        /*else if(other.gameObject.tag.Substring(0,6)=="Pickup"){
             Debug.Log("Trying to start pickup effect..");
                 try{
-                    var CurrentActorActions = transform.parent.GetComponent<ActorActionsBase>();
+                    var CurrentActorActions = transform.parent.GetComponent<ActorPickupEffects>();
+                    var CurrentActorResources = transform.parent.GetComponents<ActorResourse>();
                     if(other.gameObject.tag.Substring(7)=="Heal" && transform.parent.tag=="PlayerCharacter"){
                         Debug.Log("Trying Heal effect");
                         CurrentActorActions.Heal(3);
@@ -29,9 +57,9 @@ public class ActorHitboxBase : MonoBehaviour
                     }
                     Destroy(other.gameObject);
                 }catch{
-                    Debug.Log("Couldn't find ActorActions Componen't or Activate Pickup Effect");
+                    Debug.Log("Couldn't find ActorPickupEffects Component or Activate Pickup Effect");
                 }
-        }
+        }*/
     }
     // Start is called before the first frame update
     void Start()

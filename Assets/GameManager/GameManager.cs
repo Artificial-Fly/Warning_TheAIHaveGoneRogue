@@ -62,10 +62,13 @@ public class GameManager : MonoBehaviour
     }
     private void HandleCompletedRound(int CurrentCombatRounds){
         if(CurrentCombatRounds==0){
-            ChangeGameState(-1);
-            CombatManager.GetComponent<QueueController>().UpdateCombatStatus(false);
-            PlayerCharacterHP.DecreaseHealth(999);
+            MakeGameOver();
         }
+    }
+    public void MakeGameOver(){
+        ChangeGameState(-1);
+        CombatManager.GetComponent<QueueController>().UpdateCombatStatus(false);
+        PlayerCharacterHP.DecreaseHealth(999);
     }
     private void HandleHealthDecreased(int CurrentValue, int MaxValue, float DeltaKoef){}
     private void HandleHealthIncreased(int CurrentValue, int MaxValue, float DeltaKoef){}

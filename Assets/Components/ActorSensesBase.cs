@@ -21,10 +21,10 @@ public class ActorSensesBase : MonoBehaviour
             //Goal Ahead?
             Debug.Log("Goal Ahead");
         }else if(other.gameObject.tag.Substring(0,6)!="Pickup" && other.gameObject.tag!="Senses"){//pickups' tags: Pickup_Heal, Pickup_Timer, Pickup_Trap,
-                if(OtherActorLocation.x>CurrentActorLocation.x){RightSense=true;CurrentTriggeredSense = 1;}
-                if(OtherActorLocation.x<CurrentActorLocation.x){LeftSense=true;CurrentTriggeredSense = 2;}
-                if(OtherActorLocation.y>CurrentActorLocation.y){UpSense=true;CurrentTriggeredSense = 3;}
-                if(OtherActorLocation.y<CurrentActorLocation.y){DownSense=true;CurrentTriggeredSense = 4;}
+                if(Mathf.Abs(OtherActorLocation.x-CurrentActorLocation.x)<12 && OtherActorLocation.x>CurrentActorLocation.x){RightSense=true;CurrentTriggeredSense = 1;}
+                if(Mathf.Abs(OtherActorLocation.x-CurrentActorLocation.x)<12 && OtherActorLocation.x<CurrentActorLocation.x){LeftSense=true;CurrentTriggeredSense = 2;}
+                if(Mathf.Abs(OtherActorLocation.y-CurrentActorLocation.y)<12 && OtherActorLocation.y>CurrentActorLocation.y){UpSense=true;CurrentTriggeredSense = 3;}
+                if(Mathf.Abs(OtherActorLocation.y-CurrentActorLocation.y)<12 && OtherActorLocation.y<CurrentActorLocation.y){DownSense=true;CurrentTriggeredSense = 4;}
                 if(OnSensesTriggered!=null){
                     OnSensesTriggered(UpSense, DownSense, LeftSense, RightSense, other.gameObject.tag, CurrentTriggeredSense);
                 }
@@ -39,7 +39,7 @@ public class ActorSensesBase : MonoBehaviour
                             CurrentActorActions.Heal(3);
                         }else if(other.gameObject.tag.Substring(7)=="Timer"){
                             Debug.Log("Trying Timer effect");
-                            CurrentActorActions.Timer(10);
+                            CurrentActorActions.Timer(12);
                         }else if(other.gameObject.tag.Substring(7)=="Trap"){
                             Debug.Log("Trying Trap effect");
                             Debug.Log("Caught in the Trap!");
@@ -59,10 +59,10 @@ public class ActorSensesBase : MonoBehaviour
         var OtherActorLocation = other.gameObject.transform.position;
         var CurrentTriggeredSense = 0;
         if(other.gameObject.tag!="pickup"){
-            if(OtherActorLocation.x>CurrentActorLocation.x){RightSense=false;CurrentTriggeredSense = -1;}
-            if(OtherActorLocation.x<CurrentActorLocation.x){LeftSense=false;CurrentTriggeredSense = -2;}
-            if(OtherActorLocation.y>CurrentActorLocation.y){UpSense=false;CurrentTriggeredSense = -3;}
-            if(OtherActorLocation.y<CurrentActorLocation.y){DownSense=false;CurrentTriggeredSense = -4;}
+            if(Mathf.Abs(OtherActorLocation.x-CurrentActorLocation.x)<12 && OtherActorLocation.x>CurrentActorLocation.x){RightSense=false;CurrentTriggeredSense = -1;}
+            if(Mathf.Abs(OtherActorLocation.x-CurrentActorLocation.x)<12 && OtherActorLocation.x<CurrentActorLocation.x){LeftSense=false;CurrentTriggeredSense = -2;}
+            if(Mathf.Abs(OtherActorLocation.y-CurrentActorLocation.y)<12 && OtherActorLocation.y>CurrentActorLocation.y){UpSense=false;CurrentTriggeredSense = -3;}
+            if(Mathf.Abs(OtherActorLocation.y-CurrentActorLocation.y)<12 && OtherActorLocation.y<CurrentActorLocation.y){DownSense=false;CurrentTriggeredSense = -4;}
             if(OnSensesTriggered!=null){
                 OnSensesTriggered(UpSense, DownSense, LeftSense, RightSense, other.gameObject.tag, CurrentTriggeredSense);
             }

@@ -54,27 +54,28 @@ public class QueueController : MonoBehaviour
                 if(Actor.Value==0){
                     //idle
                     Debug.Log("Idle Action");
-                    //return true;
                 }else if(Actor.Value==1){
-                    //upt
-                    Actor.Key.GetComponent<ActorActionsBase>().MoveUP();
-                    //return true;
+                    //up
+                    Actor.Key.GetComponent<ActorActionsMovement>().MoveUP();
                 }else if(Actor.Value==2){
                     //downt
-                    Actor.Key.GetComponent<ActorActionsBase>().MoveDOWN();
-                    //return true;
+                    Actor.Key.GetComponent<ActorActionsMovement>().MoveDOWN();
                 }else if(Actor.Value==3){
                     //left
-                    Actor.Key.GetComponent<ActorActionsBase>().MoveLEFT();
-                    //return true;
+                    Actor.Key.GetComponent<ActorActionsMovement>().MoveLEFT();
                 }else if(Actor.Value==4){
                     //right
-                    Actor.Key.GetComponent<ActorActionsBase>().MoveRIGHT();
-                    //return true;
+                    Actor.Key.GetComponent<ActorActionsMovement>().MoveRIGHT();
+                    
                 }else if(Actor.Value==5){
                     //attack
-                    //Actor.Key.GetComponent<ActorActionsBase>().Attack();
-                    //return true;
+                    if(Actor.Key.gameObject.tag=="NonPlayerCharacter"){
+                        Actor.Key.GetComponent<ActorActionsAttack>().DefaultAttack();
+                    }else{
+                        
+                    }
+                    //Actor.Key.GetComponent<ActorActionsMovement>().Attack();
+                    
                 }
             }
             if(OnRoundCompleted!=null){
