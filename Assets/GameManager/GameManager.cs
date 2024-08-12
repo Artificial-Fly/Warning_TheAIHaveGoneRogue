@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     }
     //----------------
     public void ChangeGameState(int NewGameState){
-        if(NewGameState>-2 && NewGameState<2 && CurrentGameState!=-1){
+        if(NewGameState>-2 && NewGameState<2 /*&& CurrentGameState!=-1*/){
             Debug.Log("Changing Game State..");
             var OldGameState = CurrentGameState;
             CurrentGameState = NewGameState;
