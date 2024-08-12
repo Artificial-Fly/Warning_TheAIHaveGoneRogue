@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ActorSFXController : MonoBehaviour
 {
+    [SerializeField]
+    private bool StopSFXOnPause_GameOver=true;
     [SerializeField] 
     private AudioClip AudioEffect;
     [SerializeField]
@@ -33,12 +35,12 @@ public class ActorSFXController : MonoBehaviour
             }
         }
         catch{
-            
+
         }
     }
     private void HandleGameStateChanged(int CurrentGameState, int OldGameState){
         try{
-            if(CurrentGameState!=OldGameState){
+            if(CurrentGameState!=OldGameState && StopSFXOnPause_GameOver){
                 if(CurrentGameState==1){
                     if(IsSFXPaused){
                         if(AudioSourceComponent.clip!=null){

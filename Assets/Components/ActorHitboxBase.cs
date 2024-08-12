@@ -9,57 +9,80 @@ public class ActorHitboxBase : MonoBehaviour
     //event dispatchers go here
     //-----------------
     //methods go here
+    /*
+    private void ActivatePickupSFX(GameObject TargetActor){
+        try{
+            var ActorSFXController = TargetActor.transform.Find("ActorSFXController").GetComponent<ActorSFXController>();
+            ActorSFXController.StartSFX();
+        }
+        catch{
+            Debug.Log("Error: Couldn't start SFX");
+        }
+    }
+    private void ActivatePickupEffect(GameObject TargetActor, string TargetResourceType, int TargetResourceValue){
+        if(TargetResourceType=="AddTime"){
+                    //Add Combat Rounds but only if Component owned by Player Character
+                    if(transform.parent.tag=="PlayerCharacter"){
+                        ActivatePickupSFX(TargetActor);
+                        GameObject.FindWithTag("GameManager").GetComponent<GameManager>().AddGameplayTime(TargetResourceValue);
+                        DestroyPickupOnUse(TargetActor);
+                    }
+        }else if(TargetResourceType=="Heal"){
+                    //Increase Health but only if Component owned by Player Character
+                    if(transform.parent.tag=="PlayerCharacter"){
+                        ActivatePickupSFX(TargetActor);
+                        transform.parent.gameObject.GetComponent<HealthPoints>().IncreaseHealth(TargetResourceValue);
+                        DestroyPickupOnUse(TargetActor);
+                    }
+        }else if(TargetResourceType=="DealDamage"){
+                    //Add Decrease Health
+                    ActivatePickupSFX(TargetActor);
+                    transform.parent.GetComponent<HealthPoints>().DecreaseHealth(TargetResourceValue);
+                    DestroyPickupOnUse(TargetActor);
+        }else{
+                    //No Pickup Effect Found..
+                    Debug.Log("Error, Cannot apply any effect: Unknown Actor Resource Type!!!");
+        }
+    }
+    private IEnumerator DestroyPickupOnUse(GameObject TargetActor){
+        yield return new WaitForSeconds(0.5f);
+        Destroy(TargetActor);
+    }*/
     private void OnTriggerEnter(Collider other){
         if(other.gameObject.tag=="Goal" && transform.parent.tag=="PlayerCharacter"){
             Debug.Log("Player Has Reached The Goal!");
         }else {
+            var PickupActor = other.gameObject;
+            if(PickupActor.name.Contains("Time")){
+                try{PickupActor.GetComponent<AddTimePickupEffect>().ActivatePickupEffect(transform.parent.gameObject);}catch{Debug.Log("Error, can't locate pickup effect component");}
+            }else if(PickupActor.name.Contains("Heal")){
+                try{PickupActor.GetComponent<HealPickupEffect>().ActivatePickupEffect(transform.parent.gameObject);}catch{Debug.Log("Error, can't locate pickup effect component");}
+            }else if(PickupActor.name.Contains("Damage")){
+                try{PickupActor.GetComponent<DealDamagePickupEffect>().ActivatePickupEffect(transform.parent.gameObject);}catch{Debug.Log("Error, can't locate pickup effect component");}
+            }else{
+                //No Pickup Effect Found..
+                Debug.Log("Error, Cannot apply any effect: Unknown Actor Resource Type!!!");
+            }
             //var CurrentActorPickupEffects = transform.parent.GetComponent<ActorPickupEffects>();
-            Debug.Log("++CHECK OTHER ACTOR RESOURCES++");
-            var OtherActorResources = other.gameObject.GetComponents<ActorResourse>();
-            for(int i = 0; i < OtherActorResources.Length; i++){
-                if(OtherActorResources[i].GetRType()=="AddTime"){
-                    //Add Combat Rounds
-                    if(transform.parent.tag=="PlayerCharacter"){
-                            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().AddGameplayTime(OtherActorResources[i].GetRValue());
-                            Destroy(other.gameObject);
-                    }
-                }else if(OtherActorResources[i].GetRType()=="Heal"){
-                    //Increase Health
-                    if(transform.parent.tag=="PlayerCharacter"){
-                        transform.parent.gameObject.GetComponent<HealthPoints>().IncreaseHealth(OtherActorResources[i].GetRValue());
-                        Destroy(other.gameObject);
-                    }
-                }else if(OtherActorResources[i].GetRType()=="DealDamage"){
-                    //Add Decrease Health
-                    transform.parent.GetComponent<HealthPoints>().DecreaseHealth(OtherActorResources[i].GetRValue());
-                    Destroy(other.gameObject);
+            //Debug.Log("++CHECK OTHER ACTOR RESOURCES++");
+            //var OtherActorResources = other.gameObject.GetComponents<ActorResourse>();
+            /*for(int i = 0; i < OtherActorResources.Length; i++){
+                var PickupResourceType = OtherActorResources[i].GetRType();
+                var PickupResourceValue = OtherActorResources[i].GetRValue();
+                var PickupActor = other.gameObject;
+                if(PickupResourceType=="AddTime"){
+                    try{PickupActor.GetComponent<AddTimePickupEffect>().ActivatePickupEffect(transform.parent);}catch{Debug.Log("Error, can't locate pickup effect component");}
+                }else if(PickupResourceType=="Heal"){
+                    try{PickupActor.GetComponent<HealPickupEffect>().ActivatePickupEffect(transform.parent);}catch{Debug.Log("Error, can't locate pickup effect component");}
+                }else if(PickupResourceType=="DealDamage"){
+                    try{PickupActor.GetComponent<DealDamagePickupEffect>().ActivatePickupEffect(transform.parent);}catch{Debug.Log("Error, can't locate pickup effect component");}
                 }else{
-                    //
+                    //No Pickup Effect Found..
                     Debug.Log("Error, Cannot apply any effect: Unknown Actor Resource Type!!!");
                 }
-            }
+                //ActivatePickupEffect(PickupActor, TargetResourceType, TargetResourceValue);
+            }*/
         }
-        /*else if(other.gameObject.tag.Substring(0,6)=="Pickup"){
-            Debug.Log("Trying to start pickup effect..");
-                try{
-                    var CurrentActorActions = transform.parent.GetComponent<ActorPickupEffects>();
-                    var CurrentActorResources = transform.parent.GetComponents<ActorResourse>();
-                    if(other.gameObject.tag.Substring(7)=="Heal" && transform.parent.tag=="PlayerCharacter"){
-                        Debug.Log("Trying Heal effect");
-                        CurrentActorActions.Heal(3);
-                    }else if(other.gameObject.tag.Substring(7)=="Timer" && transform.parent.tag=="PlayerCharacter"){
-                        Debug.Log("Trying Timer effect");
-                        CurrentActorActions.Timer(3);
-                    }else if(other.gameObject.tag.Substring(7)=="Trap"){
-                        Debug.Log("Trying Trap effect");
-                        Debug.Log("Caught in the Trap!");
-                        CurrentActorActions.Trap(5);
-                    }
-                    Destroy(other.gameObject);
-                }catch{
-                    Debug.Log("Couldn't find ActorPickupEffects Component or Activate Pickup Effect");
-                }
-        }*/
     }
     // Start is called before the first frame update
     void Start()

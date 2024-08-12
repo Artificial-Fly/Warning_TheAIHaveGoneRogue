@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 966128358123609410}
   - component: {fileID: 6953942941085968797}
-  - component: {fileID: 3659621107410898680}
+  - component: {fileID: 7557446260093484315}
   m_Layer: 0
-  m_Name: Pickup_Trap
+  m_Name: Pickup_DealDamage
   m_TagString: Pickup_Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3659621107410898680
+--- !u!114 &7557446260093484315
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,11 +66,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4321114789697552084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba1502e2f0b94b04da6e453eef428562, type: 3}
+  m_Script: {fileID: 11500000, guid: 5af262bc237a6ea4fa4a92b923a116eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RType: DealDamage
-  RValue: 5
+  PickupResourceValue: 5
 --- !u!1001 &2707635259847299702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -163,11 +162,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ccf8c7fe0cce0641aec8ac94208cfd5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ccf8c7fe0cce0641aec8ac94208cfd5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 9.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ccf8c7fe0cce0641aec8ac94208cfd5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -208,6 +207,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1ccf8c7fe0cce0641aec8ac94208cfd5, type: 3}
       propertyPath: m_Name
       value: lightning
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 1ccf8c7fe0cce0641aec8ac94208cfd5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 1ccf8c7fe0cce0641aec8ac94208cfd5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
