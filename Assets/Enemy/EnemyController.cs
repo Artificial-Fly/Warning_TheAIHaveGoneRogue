@@ -8,7 +8,9 @@ public class EnemyController : MonoBehaviour
     public GameObject AttackZone;
     void HandleSensesTriggered(bool UpSense, bool DownSense, bool LeftSense, bool RightSense, string LastTriggeredActorTag, int lastTriggeredActorSense){
         //
+        Debug.Log("Enemy Character has faces someone..");
         if((UpSense||DownSense||LeftSense||RightSense)&&LastTriggeredActorTag=="PlayerCharacter"){
+            Debug.Log("Enemy Character has faced the Player Character");
             AttackZone.SetActive(true);
         }
     }
