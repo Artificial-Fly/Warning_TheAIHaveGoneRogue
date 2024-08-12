@@ -5,23 +5,28 @@ using UnityEngine;
 public class ActorActionsAttack : MonoBehaviour
 {
     public GameObject AttackZone;
-    public delegate void AttackCompleted();
-    public event AttackCompleted OnAttackCompleted;
+    //---------
+    //methods
     public void DefaultAttack(){
         Debug.Log("Attacking!");
-        AttackZone.SetActive(true);
-        if(OnAttackCompleted!=null){
-            OnAttackCompleted();
-        }
+        Invoke("ActivateAttackZone", 0.75f);
     }
     public void SuicideAttack(){
-        Debug.Log("Attacking!");
-        AttackZone.SetActive(true);
-        Destroy(gameObject, 0.5f);
-        if(OnAttackCompleted!=null){
-            OnAttackCompleted();
+        Debug.Log("Kamikaze Attack!");
+        try{
+            var ActorSFXController = transform.Find("ActorSFXController").GetComponent<ActorSFXController>();
+            ActorSFXController.StartSFX();
         }
+        catch{
+            Debug.Log("Error: Couldn't start SFX");
+        }
+        Invoke("ActivateAttackZone", 0.45f);
+        Destroy(gameObject, 0.95f);
     }
+    private void ActivateAttackZone(){
+        AttackZone.SetActive(true);
+    }
+    //----------
     // Start is called before the first frame update
     void Start()
     {

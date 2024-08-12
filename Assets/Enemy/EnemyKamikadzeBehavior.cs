@@ -82,7 +82,7 @@ public class EnemyKamikadzeBehavior : MonoBehaviour
     {
         ConfigureActionDictionary();
         ConfigureReferences();
-        CheckCurrentEnemyCharacterCombatStatus();
+        Invoke("CheckCurrentEnemyCharacterCombatStatus", 0.5f);
         /*ActorSenses.GetComponent<ActorSensesBase>().OnSensesTriggered+=HandleSensesTriggered;
         CombatManagerScript = GameObject.FindWithTag("CombatManager").GetComponent<CombatManager>();
         CombatManagerScript.OnRoundCompleted += HandleCompletedRound;

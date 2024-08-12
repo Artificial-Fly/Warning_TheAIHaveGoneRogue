@@ -7,6 +7,7 @@ public class SFXController : MonoBehaviour
     public AudioSource AudioEffect;
     public ParticleSystem ParticleEffect;
     private bool IsSFXPaused=false;
+    private bool IsSFXStarted=false;
     public void StartSFX(){
         if(AudioEffect!=null){
             AudioEffect.Play();
@@ -14,11 +15,12 @@ public class SFXController : MonoBehaviour
         if(ParticleEffect!=null){
             ParticleEffect.Play();
         }
+        IsSFXStarted=true;
     }
     private void HandleGameStateChanged(int CurrentGameState, int OldGameState){
         if(CurrentGameState!=OldGameState){
             if(CurrentGameState==1){
-                if(IsSFXPaused){
+                if(IsSFXPaused && IsSFXStarted){
                     if(AudioEffect!=null){
                         AudioEffect.Play();
                     }
@@ -28,7 +30,7 @@ public class SFXController : MonoBehaviour
                     IsSFXPaused=false;
                 }
             }else{
-                if(!IsSFXPaused){
+                if(!IsSFXPaused && IsSFXStarted){
                     if(AudioEffect!=null){
                         AudioEffect.Pause();
                     }
