@@ -11,7 +11,7 @@ public class HUDController : MonoBehaviour
     public GameObject ControlPanel_PAUSED_OVER,ControlPanel_UNPAUSED, TimerDisplay, HealthPointsDisplay;
     private HealthPoints PlayerCharacterHP;
     //private ActionPoints PlayerCharacterAP;
-    private GameManager GameManagerScript;
+    private GameManager GameManager;
     //-----------------
     public Slider PlayerCharacterHPSlider;
     public Slider PlayerCharacterAPSlider;
@@ -19,26 +19,26 @@ public class HUDController : MonoBehaviour
     //event dispatchers go here
     //methods go here
     public void MainMenu(){
-        if(GameManagerScript!=null){
-            GameManagerScript.MainMenu();
+        if(GameManager!=null){
+            GameManager.MainMenu();
         }
     }
     public void RestartGame(){
-        if(GameManagerScript!=null){
-            GameManagerScript.RestartGame();
+        if(GameManager!=null){
+            GameManager.RestartGame();
         }
     }
     public void PauseGame(){
         try{
-            if(GameManagerScript!=null){
-                GameManagerScript.ChangeGameState(0);
+            if(GameManager!=null){
+                GameManager.ChangeGameState(0);
             }else{
-                Debug.Log("Error: GameManagerScript==null");
-                GameManagerScript = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-                if(GameManagerScript!=null){
-                    GameManagerScript.OnGameStateChanged+=HandleGameStateChanged;
+                Debug.Log("Error: GameManager==null");
+                GameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+                if(GameManager!=null){
+                    GameManager.OnGameStateChanged+=HandleGameStateChanged;
                     Debug.Log("HUD Is Now Listening to Game State's Changeds in GameManager Script");
-                    GameManagerScript.ChangeGameState(0);
+                    GameManager.ChangeGameState(0);
                 }
             }
         }catch{
@@ -47,15 +47,15 @@ public class HUDController : MonoBehaviour
     }
     public void UnPauseGame(){
         try{
-            if(GameManagerScript!=null){
-                GameManagerScript.ChangeGameState(1);
+            if(GameManager!=null){
+                GameManager.ChangeGameState(1);
             }else{
-                Debug.Log("Error: GameManagerScript==null");
-                GameManagerScript = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-                if(GameManagerScript!=null){
-                    GameManagerScript.OnGameStateChanged+=HandleGameStateChanged;
+                Debug.Log("Error: GameManager==null");
+                GameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+                if(GameManager!=null){
+                    GameManager.OnGameStateChanged+=HandleGameStateChanged;
                     Debug.Log("HUD Is Now Listening to Game State's Changeds in GameManager Script");
-                    GameManagerScript.ChangeGameState(1);
+                    GameManager.ChangeGameState(1);
                 }
             }
         }catch{
@@ -71,8 +71,8 @@ public class HUDController : MonoBehaviour
         }
     }
     public void UpdatePlayerCharacterNextAction(int NextAction){
-        if(GameManagerScript!=null){
-            GameManagerScript.UpdateCombatManageerQueue(PlayerCharacter, NextAction);
+        if(GameManager!=null){
+            GameManager.UpdateCombatManageerQueue(PlayerCharacter, NextAction);
         }
     }
     private void HandleGameStateChanged(int CurrentGameState, int OldGameState){
@@ -155,16 +155,16 @@ public class HUDController : MonoBehaviour
                 Debug.Log("HUD is listening to PlayerCharacter's Stats..");
             } 
         }
-        GameManagerScript = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-        if(GameManagerScript!=null){
-            GameManagerScript.OnGameStateChanged+=HandleGameStateChanged;
+        GameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        if(GameManager!=null){
+            GameManager.OnGameStateChanged+=HandleGameStateChanged;
             Debug.Log("HUD Is Now Listening to Game State's Changeds in GameManager Script");
         }
-        var CombatQueueController = GameObject.FindWithTag("CombatManager").GetComponent<QueueController>(); 
-        if(CombatQueueController!=null){
-            CombatQueueController.OnRoundCompleted += HandleOnCompletedRound;
+        var CombatCombatManager = GameObject.FindWithTag("CombatManager").GetComponent<CombatManager>(); 
+        if(CombatCombatManager!=null){
+            CombatCombatManager.OnRoundCompleted += HandleOnCompletedRound;
         }else{
-            Debug.Log("CombatQueueController=null");
+            Debug.Log("CombatCombatManager=null");
         }
         UnPauseGame();
     }

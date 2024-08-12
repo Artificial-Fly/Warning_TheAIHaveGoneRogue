@@ -4,27 +4,42 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public GameObject ActorSenses;
-    public GameObject AttackZone;
-    void HandleSensesTriggered(bool UpSense, bool DownSense, bool LeftSense, bool RightSense, string LastTriggeredActorTag, int lastTriggeredActorSense){
-        //
-        Debug.Log("Enemy Character has faces someone..");
-        if((UpSense||DownSense||LeftSense||RightSense)&&LastTriggeredActorTag=="PlayerCharacter"){
-            Debug.Log("Enemy Character has faced the Player Character");
-            AttackZone.SetActive(true);
+    //variables go here
+    private GameObject CurrentEnemyCharacter;
+    private HealthPoints CurrentEnemyCharacterHP;
+    //private ActionPoints CurrentEnemyCharacterAP;
+    //-----------------
+    //event dispatchers go here
+    //methods go here
+    void ResetStats(){
+        if (CurrentEnemyCharacterHP!=null){
+            CurrentEnemyCharacterHP.IncreaseHealth(999);
+            Debug.Log("CurrentEnemyCharacter's Stats Have Been Reset");
         }
     }
+    private void HandleHealthDecreased(int CurrentValue, int MaxValue, float DeltaKoef){
+        if(!(CurrentValue>CurrentEnemyCharacterHP.MinValue)){
+            Destroy(gameObject);
+        }
+    }
+    private void HandleHealthIncreased(int CurrentValue, int MaxValue, float DeltaKoef){}
     // Start is called before the first frame update
     void Start()
     {
-        try{
-            ActorSenses.GetComponent<ActorSensesBase>().OnSensesTriggered+= HandleSensesTriggered;
-            Debug.Log("Successfuly located ActorSenses component, listening now..");
-        }catch{
-            Debug.Log("Failed to locate ActorSenses component..");
+        CurrentEnemyCharacter = transform.gameObject;
+        CurrentEnemyCharacterHP = transform.gameObject.GetComponent<HealthPoints>();
+        if(CurrentEnemyCharacter==null){
+            Debug.Log("Can't find CurrentEnemyCharacter");
+        }else{
+            if(CurrentEnemyCharacterHP==null){
+            Debug.Log("Can't find CurrentEnemyCharacter's health points entity resource");
+            }else if (CurrentEnemyCharacterHP!=null){
+                CurrentEnemyCharacterHP.OnHealthDecreased += HandleHealthDecreased;
+                CurrentEnemyCharacterHP.OnHealthIncreased += HandleHealthIncreased;
+                Invoke("ResetStats",0.3f);
+            } 
         }
     }
-
     // Update is called once per frame
     void Update()
     {

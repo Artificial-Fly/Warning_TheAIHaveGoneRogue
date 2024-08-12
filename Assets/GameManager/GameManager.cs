@@ -28,15 +28,15 @@ public class GameManager : MonoBehaviour
     }
     //-----------------
     public bool UpdateCombatManageerQueue(GameObject TargetActor, int NextAction){
-        if(CombatManager.GetComponent<QueueController>()!=null){
-            return CombatManager.GetComponent<QueueController>().UpdateActorsDictionary(TargetActor, NextAction);
+        if(CombatManager.GetComponent<CombatManager>()!=null){
+            return CombatManager.GetComponent<CombatManager>().UpdateActorsDictionary(TargetActor, NextAction);
         }else{
             return false;
         }
     }
     public void AddGameplayTime(int Amount){
-        if(CombatManager.GetComponent<QueueController>()!=null){
-            CombatManager.GetComponent<QueueController>().AddCombatRounds(Amount);
+        if(CombatManager.GetComponent<CombatManager>()!=null){
+            CombatManager.GetComponent<CombatManager>().AddCombatRounds(Amount);
         }
     }
     //----------------
@@ -46,9 +46,9 @@ public class GameManager : MonoBehaviour
             var OldGameState = CurrentGameState;
             CurrentGameState = NewGameState;
             if(CurrentGameState==1){
-                CombatManager.GetComponent<QueueController>().UpdateCombatStatus(true);
+                CombatManager.GetComponent<CombatManager>().UpdateCombatStatus(true);
             }else{
-                CombatManager.GetComponent<QueueController>().UpdateCombatStatus(false);
+                CombatManager.GetComponent<CombatManager>().UpdateCombatStatus(false);
             }
             if(OnGameStateChanged!=null){
                 OnGameStateChanged(CurrentGameState, OldGameState);
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     }
     public void MakeGameOver(){
         ChangeGameState(-1);
-        CombatManager.GetComponent<QueueController>().UpdateCombatStatus(false);
+        CombatManager.GetComponent<CombatManager>().UpdateCombatStatus(false);
     }
     private void HandleHealthDecreased(int CurrentValue, int MaxValue, float DeltaKoef){}
     private void HandleHealthIncreased(int CurrentValue, int MaxValue, float DeltaKoef){}
@@ -95,8 +95,8 @@ public class GameManager : MonoBehaviour
         CombatManager = GameObject.FindWithTag("CombatManager");
         if(CombatManager!=null){
             Debug.Log("Player Character CombatQueue Status: "+UpdateCombatManageerQueue(PlayerCharacter, 0).ToString());
-            CombatManager.GetComponent<QueueController>().OnRoundCompleted += HandleCompletedRound;
-            CombatManager.GetComponent<QueueController>().UpdateCombatStatus(true);
+            CombatManager.GetComponent<CombatManager>().OnRoundCompleted += HandleCompletedRound;
+            CombatManager.GetComponent<CombatManager>().UpdateCombatStatus(true);
         }
     }
 

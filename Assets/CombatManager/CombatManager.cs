@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QueueController : MonoBehaviour
+public class CombatManager : MonoBehaviour
 {
     //variables go here
     public string CurrentScene, NextScene;
@@ -70,11 +70,14 @@ public class QueueController : MonoBehaviour
                 }else if(Actor.Value==5){
                     //attack
                     if(Actor.Key.gameObject.tag=="NonPlayerCharacter"){
-                        Actor.Key.GetComponent<ActorActionsAttack>().DefaultAttack();
+                        if(Actor.Key.name.Contains("Kamikadze")){
+                            Actor.Key.GetComponent<ActorActionsAttack>().SuicideAttack();
+                        }else if(!Actor.Key.name.Contains("Kamikadze")){
+                            Actor.Key.GetComponent<ActorActionsAttack>().DefaultAttack();
+                        }
                     }else{
-                        
+                        Debug.Log("This ain't NonPlayerCharacter.. Does it have to attack?");
                     }
-                    //Actor.Key.GetComponent<ActorActionsMovement>().Attack();
                     
                 }
             }

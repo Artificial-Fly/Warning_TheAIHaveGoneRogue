@@ -28,29 +28,7 @@ public class ActorSensesBase : MonoBehaviour
                 if(OnSensesTriggered!=null){
                     OnSensesTriggered(UpSense, DownSense, LeftSense, RightSense, other.gameObject.tag, CurrentTriggeredSense);
                 }
-            }else{
-                //implement pickup effect here:
-                /*if(other.gameObject.tag.Substring(0,6)=="Pickup"){
-                    Debug.Log("Trying to start pickup effect..");
-                    try{
-                        var CurrentActorActions = transform.parent.GetComponent<ActorActions>();
-                        if(other.gameObject.tag.Substring(7)=="Heal"){
-                            Debug.Log("Trying Heal effect");
-                            CurrentActorActions.Heal(3);
-                        }else if(other.gameObject.tag.Substring(7)=="Timer"){
-                            Debug.Log("Trying Timer effect");
-                            CurrentActorActions.Timer(12);
-                        }else if(other.gameObject.tag.Substring(7)=="Trap"){
-                            Debug.Log("Trying Trap effect");
-                            Debug.Log("Caught in the Trap!");
-                            CurrentActorActions.Trap(5);
-                        }
-                        Destroy(other.gameObject);
-                    }catch{
-                        Debug.Log("Couldn't find ActorActions Componen't or Activate Pickup Effect");
-                    }
-                }*/
-            }
+            }else{/*There was pickup effects realisation, but it was moved into ActorHitBoxBase component*/}
         
     }
     private void OnTriggerExit(Collider other){
@@ -58,11 +36,11 @@ public class ActorSensesBase : MonoBehaviour
         var CurrentActorLocation = transform.position;
         var OtherActorLocation = other.gameObject.transform.position;
         var CurrentTriggeredSense = 0;
-        if(other.gameObject.tag!="pickup"){
-            if(Mathf.Abs(OtherActorLocation.x-CurrentActorLocation.x)<12 && OtherActorLocation.x>CurrentActorLocation.x){RightSense=false;CurrentTriggeredSense = -1;}
-            if(Mathf.Abs(OtherActorLocation.x-CurrentActorLocation.x)<12 && OtherActorLocation.x<CurrentActorLocation.x){LeftSense=false;CurrentTriggeredSense = -2;}
-            if(Mathf.Abs(OtherActorLocation.y-CurrentActorLocation.y)<12 && OtherActorLocation.y>CurrentActorLocation.y){UpSense=false;CurrentTriggeredSense = -3;}
-            if(Mathf.Abs(OtherActorLocation.y-CurrentActorLocation.y)<12 && OtherActorLocation.y<CurrentActorLocation.y){DownSense=false;CurrentTriggeredSense = -4;}
+        if(other.gameObject.tag!="pickup" && other.gameObject.tag!="Senses"){
+            if(OtherActorLocation.x>CurrentActorLocation.x){RightSense=false;CurrentTriggeredSense = -1;}
+            if(OtherActorLocation.x<CurrentActorLocation.x){LeftSense=false;CurrentTriggeredSense = -2;}
+            if(OtherActorLocation.y>CurrentActorLocation.y){UpSense=false;CurrentTriggeredSense = -3;}
+            if(OtherActorLocation.y<CurrentActorLocation.y){DownSense=false;CurrentTriggeredSense = -4;}
             if(OnSensesTriggered!=null){
                 OnSensesTriggered(UpSense, DownSense, LeftSense, RightSense, other.gameObject.tag, CurrentTriggeredSense);
             }
