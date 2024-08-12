@@ -15,7 +15,7 @@ public class ActorActionsMovement : MonoBehaviour
     //event dispatchers go here
     //-----------------
     //methods go here
-    private void HandleOnSensesTriggered(bool UpSense, bool DownSense, bool LeftSense, bool RightSense, string LastTriggeredActorTag, int lastTriggeredActorSense){
+    private void HandleSensesTriggered(bool UpSense, bool DownSense, bool LeftSense, bool RightSense, string LastTriggeredActorTag, int lastTriggeredActorSense){
         CurrentUpStatus = UpSense;
         CurrentDownStatus = DownSense;
         CurrentLeftStatus = LeftSense;
@@ -61,7 +61,7 @@ public class ActorActionsMovement : MonoBehaviour
     void Start()
     {
         try{
-            ActorSenses.GetComponent<ActorSensesBase>().OnSensesTriggered+= HandleOnSensesTriggered;
+            ActorSenses.GetComponent<ActorSensesBase>().OnSensesTriggered+= HandleSensesTriggered;
             Debug.Log("Successfuly located ActorSenses component, listening now..");
         }catch{
             Debug.Log("Failed to locate ActorSenses component..");

@@ -17,21 +17,21 @@ public class ActorHitboxBase : MonoBehaviour
             Debug.Log("++CHECK OTHER ACTOR RESOURCES++");
             var OtherActorResources = other.gameObject.GetComponents<ActorResourse>();
             for(int i = 0; i < OtherActorResources.Length; i++){
-                if(OtherActorResources[i].GetType()=="AddTime"){
+                if(OtherActorResources[i].GetRType()=="AddTime"){
                     //Add Combat Rounds
                     if(transform.parent.tag=="PlayerCharacter"){
-                            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().AddGameplayTime(OtherActorResources[i].GetValue());
+                            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().AddGameplayTime(OtherActorResources[i].GetRValue());
                             Destroy(other.gameObject);
                     }
-                }else if(OtherActorResources[i].GetType()=="Heal"){
+                }else if(OtherActorResources[i].GetRType()=="Heal"){
                     //Increase Health
                     if(transform.parent.tag=="PlayerCharacter"){
-                        transform.parent.gameObject.GetComponent<HealthPoints>().IncreaseHealth(OtherActorResources[i].GetValue());
+                        transform.parent.gameObject.GetComponent<HealthPoints>().IncreaseHealth(OtherActorResources[i].GetRValue());
                         Destroy(other.gameObject);
                     }
-                }else if(OtherActorResources[i].GetType()=="DealDamage"){
+                }else if(OtherActorResources[i].GetRType()=="DealDamage"){
                     //Add Decrease Health
-                    transform.parent.GetComponent<HealthPoints>().DecreaseHealth(OtherActorResources[i].GetValue());
+                    transform.parent.GetComponent<HealthPoints>().DecreaseHealth(OtherActorResources[i].GetRValue());
                     Destroy(other.gameObject);
                 }else{
                     //

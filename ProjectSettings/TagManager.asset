@@ -17,6 +17,7 @@ TagManager:
   - Senses
   - Hitbox
   - AgroZone
+  - AttackZone
   layers:
   - Default
   - TransparentFX

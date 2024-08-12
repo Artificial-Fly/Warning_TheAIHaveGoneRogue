@@ -13,7 +13,7 @@ public class EnemyKamikadzeBehavior : MonoBehaviour
     private int CurrentActionIndex=0;
     private static int ActionsAmount = 10;
     public string[] PatrolActions = new string[ActionsAmount];
-    public string[] BattleActions = new string[ActionsAmount];
+    //public string[] BattleActions = new string[ActionsAmount];
     private Dictionary<string,int> ActionStringToInt = new Dictionary<string,int>();
     //-----------------
     //event dispatchers go here
@@ -36,7 +36,7 @@ public class EnemyKamikadzeBehavior : MonoBehaviour
             //UpdateNextAction(1);
         }else{
             Debug.Log("Non Player Character (Enemy) State is Battling");//.\n Enemy's next action is "+PatrolActions[CurrentActionIndex]+"("+ActionStringToInt[BattleActions[CurrentActionIndex]].ToString()+")");
-            UpdateNextAction(ActionStringToInt[BattleActions[CurrentActionIndex]]);
+            //UpdateNextAction(ActionStringToInt[BattleActions[CurrentActionIndex]]);
         }
     }
     bool ConfigureReferences(int NextAction){

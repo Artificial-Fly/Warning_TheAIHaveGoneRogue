@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ActorResourse : MonoBehaviour
 {
-    public string Type;
-    public int Value;
-    public string GetType(){
-        return Type;
+    public string RType;
+    public int RValue;
+    public string GetRType(){
+        return RType;
     }
-    public int GetValue(){
-        return Value;
+    public int GetRValue(){
+        return RValue;
     }
     // Start is called before the first frame update
     void Start()
