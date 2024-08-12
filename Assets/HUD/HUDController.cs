@@ -8,7 +8,7 @@ public class HUDController : MonoBehaviour
 {
     //variables go here
     private GameObject PlayerCharacter;
-    public GameObject ControlPanel_PAUSED_OVER,ControlPanel_UNPAUSED, TimerDisplay, HealthPointsDisplay;
+    public GameObject ControlPanel_PAUSED_OVER,ControlPanel_UNPAUSED, TimerDisplay, HealthPointsDisplay, UnPauseButton;
     private HealthPoints PlayerCharacterHP;
     //private ActionPoints PlayerCharacterAP;
     private GameManager GameManager;
@@ -81,24 +81,25 @@ public class HUDController : MonoBehaviour
             ControlPanel_PAUSED_OVER.gameObject.SetActive(false);
             ControlPanel_UNPAUSED.gameObject.SetActive(true);
             //--------------
-            TimerDisplay.gameObject.SetActive(true);
-            HealthPointsDisplay.gameObject.SetActive(true);
+            //TimerDisplay.gameObject.SetActive(true);
+            //HealthPointsDisplay.gameObject.SetActive(true);
         }else if(CurrentGameState==0){
             Debug.Log("Game State is Paused");
             GameOverText.SetText("Pause");//gameObject.SetActive(false);
             ControlPanel_PAUSED_OVER.gameObject.SetActive(true);
             ControlPanel_UNPAUSED.gameObject.SetActive(false);
             //--------------
-            TimerDisplay.gameObject.SetActive(true);
-            HealthPointsDisplay.gameObject.SetActive(true);
+            //TimerDisplay.gameObject.SetActive(true);
+            //HealthPointsDisplay.gameObject.SetActive(true);
         }else if(CurrentGameState==-1){
             Debug.Log("Game State is GameOver");
             GameOverText.SetText("Game Over");//gameObject.SetActive(true);
             ControlPanel_PAUSED_OVER.gameObject.SetActive(true);
             ControlPanel_UNPAUSED.gameObject.SetActive(false);
             //--------------
-            TimerDisplay.gameObject.SetActive(false);
-            HealthPointsDisplay.gameObject.SetActive(false);
+            //TimerDisplay.gameObject.SetActive(false);
+            //HealthPointsDisplay.gameObject.SetActive(false);
+            UnPauseButton.SetActive(false);
         }
     }
     private void HandleOnCompletedRound(int CurrentCombatRounds){
@@ -166,7 +167,7 @@ public class HUDController : MonoBehaviour
         }else{
             Debug.Log("CombatCombatManager=null");
         }
-        UnPauseGame();
+        Invoke("UnPauseGame", 0.3f);
     }
 
     // Update is called once per frame
