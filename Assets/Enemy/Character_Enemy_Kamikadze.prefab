@@ -405,7 +405,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3902411238598495126, guid: 72c2ef9099e8887448c2c88c3f73edca, type: 3}
       propertyPath: m_Name
-      value: ExplosionZone
+      value: ExplosionAttackZone
       objectReference: {fileID: 0}
     - target: {fileID: 3902411238598495126, guid: 72c2ef9099e8887448c2c88c3f73edca, type: 3}
       propertyPath: m_IsActive
@@ -463,10 +463,7 @@ PrefabInstance:
     - {fileID: 8335582500514139503, guid: 72c2ef9099e8887448c2c88c3f73edca, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3902411238598495126, guid: 72c2ef9099e8887448c2c88c3f73edca, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8280226017401850437}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72c2ef9099e8887448c2c88c3f73edca, type: 3}
 --- !u!4 &20466592321628989 stripped
 Transform:
@@ -478,19 +475,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3902411238598495126, guid: 72c2ef9099e8887448c2c88c3f73edca, type: 3}
   m_PrefabInstance: {fileID: 5841121353575571054}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8280226017401850437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7433176565274760696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5af262bc237a6ea4fa4a92b923a116eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PickupResourceValue: 0
 --- !u!1001 &6968605861506840541
 PrefabInstance:
   m_ObjectHideFlags: 0

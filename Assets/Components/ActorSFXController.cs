@@ -5,7 +5,7 @@ using UnityEngine;
 public class ActorSFXController : MonoBehaviour
 {
     [SerializeField]
-    private bool StopSFXOnPause_GameOver=true;
+    private bool StopSFXOnPause_GameOver=true, PlayOnAwake=false;
     [SerializeField] 
     private AudioClip AudioEffect;
     [SerializeField]
@@ -77,6 +77,7 @@ public class ActorSFXController : MonoBehaviour
             GameManager.OnGameStateChanged+=HandleGameStateChanged;
         }
         AudioSourceComponent = transform.gameObject.GetComponent<AudioSource>();
+        if(PlayOnAwake){StartSFX();}
     }
 
     // Update is called once per frame

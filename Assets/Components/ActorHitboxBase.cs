@@ -57,7 +57,7 @@ public class ActorHitboxBase : MonoBehaviour
                 try{PickupActor.GetComponent<AddTimePickupEffect>().ActivatePickupEffect(transform.parent.gameObject);}catch{Debug.Log("Error, can't locate pickup effect component");}
             }else if(PickupActor.name.Contains("Heal")){
                 try{PickupActor.GetComponent<HealPickupEffect>().ActivatePickupEffect(transform.parent.gameObject);}catch{Debug.Log("Error, can't locate pickup effect component");}
-            }else if(PickupActor.name.Contains("Damage")){
+            }else if(PickupActor.name.Contains("Damage")||PickupActor.name.Contains("AttackZone")){
                 try{PickupActor.GetComponent<DealDamagePickupEffect>().ActivatePickupEffect(transform.parent.gameObject);}catch{Debug.Log("Error, can't locate pickup effect component");}
             }else{
                 //No Pickup Effect Found..

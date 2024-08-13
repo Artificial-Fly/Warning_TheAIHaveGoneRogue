@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5856758338620355923}
   - component: {fileID: 5221510017614242722}
-  - component: {fileID: 8335582500514139503}
+  - component: {fileID: -4925260148366474483}
   m_Layer: 0
-  m_Name: KamikadzeAttack
+  m_Name: KamikadzeAttackZone
   m_TagString: AttackZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 28, y: 28, z: 8}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8335582500514139503
+--- !u!114 &-4925260148366474483
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,8 +63,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3902411238598495126}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba1502e2f0b94b04da6e453eef428562, type: 3}
+  m_Script: {fileID: 11500000, guid: 5af262bc237a6ea4fa4a92b923a116eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: DealDamage
-  Value: 7
+  PickupResourceValue: 5
