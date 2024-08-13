@@ -20,7 +20,7 @@ public class ActorSensesBase : MonoBehaviour
         if(other.gameObject.tag=="Goal"){
             //Goal Ahead?
             Debug.Log("Goal Ahead");
-        }else if(other.gameObject.tag.Substring(0,6)!="Pickup" && other.gameObject.tag!="Senses"){//pickups' tags: Pickup_Heal, Pickup_Timer, Pickup_Trap,
+        }else if(other.gameObject.tag=="Obstacle" || other.gameObject.tag=="Hitbox"){//pickups' tags: Pickup_Heal, Pickup_Timer, Pickup_Trap,
                 if(Mathf.Abs(OtherActorLocation.x-CurrentActorLocation.x)<12 && OtherActorLocation.x>CurrentActorLocation.x){RightSense=true;CurrentTriggeredSense = 1;}
                 if(Mathf.Abs(OtherActorLocation.x-CurrentActorLocation.x)<12 && OtherActorLocation.x<CurrentActorLocation.x){LeftSense=true;CurrentTriggeredSense = 2;}
                 if(Mathf.Abs(OtherActorLocation.y-CurrentActorLocation.y)<12 && OtherActorLocation.y>CurrentActorLocation.y){UpSense=true;CurrentTriggeredSense = 3;}
@@ -36,7 +36,7 @@ public class ActorSensesBase : MonoBehaviour
         var CurrentActorLocation = transform.position;
         var OtherActorLocation = other.gameObject.transform.position;
         var CurrentTriggeredSense = 0;
-        if(other.gameObject.tag!="pickup" && other.gameObject.tag!="Senses"){
+        if(other.gameObject.tag=="Obstacle" || other.gameObject.tag=="Hitbox"){
             if(OtherActorLocation.x>CurrentActorLocation.x){RightSense=false;CurrentTriggeredSense = -1;}
             if(OtherActorLocation.x<CurrentActorLocation.x){LeftSense=false;CurrentTriggeredSense = -2;}
             if(OtherActorLocation.y>CurrentActorLocation.y){UpSense=false;CurrentTriggeredSense = -3;}

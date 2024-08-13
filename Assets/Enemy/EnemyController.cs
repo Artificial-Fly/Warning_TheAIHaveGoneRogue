@@ -7,10 +7,30 @@ public class EnemyController : MonoBehaviour
     //variables go here
     private GameObject CurrentEnemyCharacter;
     private HealthPoints CurrentEnemyCharacterHP;
+    private bool isQuitting=false;
+    [SerializeField]
+    private GameObject ObstaclePrefab;
     //private ActionPoints CurrentEnemyCharacterAP;
     //-----------------
     //event dispatchers go here
     //methods go here
+    void OnApplicationQuit()
+    {
+        isQuitting = true;
+    }
+    private void OnDestroy(){
+        try{
+            GameObject.FindWithTag("CombatManager").GetComponent<CombatManager>().DeleteActorFromActorsDictionary(transform.gameObject);
+            if (!isQuitting)
+            {
+                //Spawn Obstacle at Kamikadze location on destroy
+                Instantiate(ObstaclePrefab, transform.position, transform.rotation);
+            }
+        }
+        catch{
+
+        }
+    }
     void ResetStats(){
         if (CurrentEnemyCharacterHP!=null){
             CurrentEnemyCharacterHP.IncreaseHealth(999);

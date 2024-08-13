@@ -15,13 +15,26 @@ public class ActorSFXController : MonoBehaviour
     //------------------------------
     public bool UpdateSFX(AudioClip NewAudioEffect, ParticleSystem NewParticleEffect){
         try{
-            if(NewAudioEffect==null || NewParticleEffect==null){return false;}
-            AudioEffect=NewAudioEffect;
-            ParticleEffect=NewParticleEffect;
-            return true;
+            if(NewAudioEffect==null && NewParticleEffect==null){return false;}
+            else{
+                if(NewAudioEffect!=null){AudioEffect=NewAudioEffect;}
+                if(NewParticleEffect!=null){ParticleEffect=NewParticleEffect;}
+                return true;
+            }
         }
         catch{
             return false;
+        }
+    }
+    public void StopSFX(){
+        if(!IsSFXPaused){
+            if(AudioSourceComponent.clip!=null){
+                AudioSourceComponent.Pause();
+            }
+            if(ParticleEffect!=null){
+                ParticleEffect.Pause();
+            }
+            IsSFXPaused=true;
         }
     }
     public void StartSFX(){
@@ -33,9 +46,10 @@ public class ActorSFXController : MonoBehaviour
             if(ParticleEffect!=null){
                 ParticleEffect.Play();
             }
+            IsSFXPaused=false;
         }
         catch{
-
+            //
         }
     }
     private void HandleGameStateChanged(int CurrentGameState, int OldGameState){

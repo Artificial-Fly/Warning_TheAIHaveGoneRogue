@@ -7,6 +7,17 @@ using UnityEngine.UI;
 public class HUDController : MonoBehaviour
 {
     //variables go here
+    [SerializeField]
+    private AudioClip GameOverMusicClip;
+    //[SerializeField]
+    //private AudioClip PauseMusicClip;
+    [SerializeField]
+    private AudioClip UnpauseMusicClip;
+    [SerializeField]
+    private GameObject BackgroundMusicController;
+    [SerializeField]
+    private GameObject SFXC_ButtonClick_PlayerControl, SFXC_ButtonClick_Menu;
+    //-----------------------------
     private GameObject PlayerCharacter;
     public GameObject ControlPanel_PAUSED_OVER,ControlPanel_UNPAUSED, TimerDisplay, HealthPointsDisplay, UnPauseButton;
     private HealthPoints PlayerCharacterHP;
@@ -18,19 +29,38 @@ public class HUDController : MonoBehaviour
     public TMP_Text TimerText, HealthPointsText, GameOverText;  
     //event dispatchers go here
     //methods go here
+    private void ActivateSFXForButtonClickPlayerControl(){
+        try{
+            var SFXController = SFXC_ButtonClick_PlayerControl.GetComponent<ActorSFXController>();
+            SFXController.StartSFX();
+        }catch{
+            Debug.Log("Couldn't Start SFX for SFXC_ButtonClick_PlayerControl..");
+        }
+    }
+    private void ActivateSFXForButtonClickMenu(){
+        try{
+            var SFXController = SFXC_ButtonClick_Menu.GetComponent<ActorSFXController>();
+            SFXController.StartSFX();
+        }catch{
+            Debug.Log("Couldn't Start SFX for SFXC_ButtonClick_Menu..");
+        }
+    }
     public void MainMenu(){
         if(GameManager!=null){
+            ActivateSFXForButtonClickMenu();
             GameManager.MainMenu();
         }
     }
     public void RestartGame(){
         if(GameManager!=null){
+            ActivateSFXForButtonClickPlayerControl();
             GameManager.RestartGame();
         }
     }
     public void PauseGame(){
         try{
             if(GameManager!=null){
+                ActivateSFXForButtonClickPlayerControl();
                 GameManager.ChangeGameState(0);
             }else{
                 Debug.Log("Error: GameManager==null");
@@ -38,6 +68,7 @@ public class HUDController : MonoBehaviour
                 if(GameManager!=null){
                     GameManager.OnGameStateChanged+=HandleGameStateChanged;
                     Debug.Log("HUD Is Now Listening to Game State's Changeds in GameManager Script");
+                    ActivateSFXForButtonClickPlayerControl();
                     GameManager.ChangeGameState(0);
                 }
             }
@@ -48,6 +79,7 @@ public class HUDController : MonoBehaviour
     public void UnPauseGame(){
         try{
             if(GameManager!=null){
+                ActivateSFXForButtonClickPlayerControl();
                 GameManager.ChangeGameState(1);
             }else{
                 Debug.Log("Error: GameManager==null");
@@ -55,6 +87,7 @@ public class HUDController : MonoBehaviour
                 if(GameManager!=null){
                     GameManager.OnGameStateChanged+=HandleGameStateChanged;
                     Debug.Log("HUD Is Now Listening to Game State's Changeds in GameManager Script");
+                    ActivateSFXForButtonClickPlayerControl();
                     GameManager.ChangeGameState(1);
                 }
             }
@@ -72,6 +105,7 @@ public class HUDController : MonoBehaviour
     }
     public void UpdatePlayerCharacterNextAction(int NextAction){
         if(GameManager!=null){
+            ActivateSFXForButtonClickPlayerControl();
             GameManager.UpdateCombatManageerQueue(PlayerCharacter, NextAction);
         }
     }
@@ -80,6 +114,16 @@ public class HUDController : MonoBehaviour
             Debug.Log("Game State is Unpaused");
             ControlPanel_PAUSED_OVER.gameObject.SetActive(false);
             ControlPanel_UNPAUSED.gameObject.SetActive(true);
+            try{
+                var BGMContrller = BackgroundMusicController.GetComponent<ActorSFXController>();
+                var BGMAudioSource = BackgroundMusicController.GetComponent<AudioSource>();
+                BGMAudioSource.loop = true;
+                //
+                BGMContrller.UpdateSFX(UnpauseMusicClip, null);
+                BGMContrller.StartSFX();
+            }catch{
+                Debug.Log("Couldn't Start Background Music..");
+            }
             //--------------
             //TimerDisplay.gameObject.SetActive(true);
             //HealthPointsDisplay.gameObject.SetActive(true);
@@ -88,6 +132,16 @@ public class HUDController : MonoBehaviour
             GameOverText.SetText("Pause");//gameObject.SetActive(false);
             ControlPanel_PAUSED_OVER.gameObject.SetActive(true);
             ControlPanel_UNPAUSED.gameObject.SetActive(false);
+            /*try{
+                var BGMContrller = BackgroundMusicController.GetComponent<ActorSFXController>();
+                var BGMAudioSource = BackgroundMusicController.GetComponent<AudioSource>();
+                BGMAudioSource.loop = false;
+                //
+                BGMContrller.UpdateSFX(PauseMusicClip, null);
+                BGMContrller.StartSFX();
+            }catch{
+                Debug.Log("Couldn't Start Background Music..");
+            }*/
             //--------------
             //TimerDisplay.gameObject.SetActive(true);
             //HealthPointsDisplay.gameObject.SetActive(true);
@@ -96,13 +150,23 @@ public class HUDController : MonoBehaviour
             GameOverText.SetText("Game Over");//gameObject.SetActive(true);
             ControlPanel_PAUSED_OVER.gameObject.SetActive(true);
             ControlPanel_UNPAUSED.gameObject.SetActive(false);
+            try{
+                var BGMContrller = BackgroundMusicController.GetComponent<ActorSFXController>();
+                var BGMAudioSource = BackgroundMusicController.GetComponent<AudioSource>();
+                BGMAudioSource.loop = false;
+                //
+                BGMContrller.UpdateSFX(GameOverMusicClip, null);
+                BGMContrller.StartSFX();
+            }catch{
+                Debug.Log("Couldn't Start Background Music..");
+            }
             //--------------
             //TimerDisplay.gameObject.SetActive(false);
             //HealthPointsDisplay.gameObject.SetActive(false);
             UnPauseButton.SetActive(false);
         }
     }
-    private void HandleOnCompletedRound(int CurrentCombatRounds){
+    private void HandleCompletedRound(int CurrentCombatRounds){
         Debug.Log("Round Has Been Completed");
         UpdateTimerText(CurrentCombatRounds);
     }
@@ -163,7 +227,7 @@ public class HUDController : MonoBehaviour
         }
         var CombatCombatManager = GameObject.FindWithTag("CombatManager").GetComponent<CombatManager>(); 
         if(CombatCombatManager!=null){
-            CombatCombatManager.OnRoundCompleted += HandleOnCompletedRound;
+            CombatCombatManager.OnRoundCompleted += HandleCompletedRound;
         }else{
             Debug.Log("CombatCombatManager=null");
         }

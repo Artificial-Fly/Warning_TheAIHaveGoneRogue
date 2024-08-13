@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     //variables go here
+    [SerializeField] 
+    private int PlayerActionOnStart=3;
     private int CurrentGameState = 1;//-1=GameOver, 0=Pause, 1=GamePlay
     private GameObject PlayerCharacter, CombatManager, HUDManager;
     private HealthPoints PlayerCharacterHP;
@@ -69,6 +71,11 @@ public class GameManager : MonoBehaviour
         ChangeGameState(-1);
         CombatManager.GetComponent<CombatManager>().UpdateCombatStatus(false);
     }
+    private void UpdatePlayerActionOnStart(){
+        if(PlayerCharacter!=null){
+            UpdateCombatManageerQueue(PlayerCharacter, PlayerActionOnStart);
+        }
+    }
     private void HandleHealthDecreased(int CurrentValue, int MaxValue, float DeltaKoef){}
     private void HandleHealthIncreased(int CurrentValue, int MaxValue, float DeltaKoef){}
     /*private void HandleActionDecreased(int CurrentValue, int MaxValue, float DeltaKoef){}
@@ -94,9 +101,9 @@ public class GameManager : MonoBehaviour
         //-----------------
         CombatManager = GameObject.FindWithTag("CombatManager");
         if(CombatManager!=null){
-            Debug.Log("Player Character CombatQueue Status: "+UpdateCombatManageerQueue(PlayerCharacter, 0).ToString());
             CombatManager.GetComponent<CombatManager>().OnRoundCompleted += HandleCompletedRound;
             CombatManager.GetComponent<CombatManager>().UpdateCombatStatus(true);
+            Invoke("UpdatePlayerActionOnStart", 0.15f);
         }
     }
 

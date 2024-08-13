@@ -20,7 +20,7 @@ public class ActorActionsAttack : MonoBehaviour
         catch{
             Debug.Log("Error: Couldn't start SFX");
         }
-        Invoke("ActivateAttackZone", 0.45f);
+        Invoke("ActivateAttackZone", 0.15f);
         Destroy(gameObject, 0.95f);
     }
     private void ActivateAttackZone(){

@@ -5,11 +5,13 @@ using UnityEngine;
 public class CombatManager : MonoBehaviour
 {
     //variables go here
-    public string CurrentScene, NextScene;
+    [SerializeField]
+    private AudioClip CombatRoundCompletedSound;
     private Dictionary<GameObject, int> ActorsDictionary = new Dictionary<GameObject, int>();
     //-----------------
     public int CombatRounds=10;
-    public float StartCombatDelay=0.5f, CombatRoundDuration=1.1f;
+    public float StartCombatDelay=0.5f;
+    private float CombatRoundDuration=1.0f;
     private int CurrentCombatRounds;
     //-----------------
     //event dispatchers go here
@@ -28,10 +30,36 @@ public class CombatManager : MonoBehaviour
     }
     public void UpdateCombatStatus(bool IsCombatStarted){
         if(IsCombatStarted && !IsInvoking("CompleteCombatRound")){
+            Debug.Log("========================================================================");
+            Debug.Log("Starting Combat");
+            Debug.Log("========================================================================");
+            if(CombatRoundCompletedSound!=null){
+                CombatRoundDuration = CombatRoundCompletedSound.length;
+                try{
+                    var ComabatTurnSFX = transform.Find("ActorSFXController").GetComponent<ActorSFXController>();
+                    ComabatTurnSFX.UpdateSFX(CombatRoundCompletedSound, null);
+                    ComabatTurnSFX.StartSFX();
+                }catch{
+                    Debug.Log("Couldn't Start CombatTurn Effect..");
+                }
+            }
             InvokeRepeating("CompleteCombatRound", StartCombatDelay, CombatRoundDuration);
         }else{
+            Debug.Log("========================================================================");
+            Debug.Log("Stoping Combat");
+            Debug.Log("========================================================================");
             CancelInvoke();
+            try{
+                var ComabatTurnSFX = transform.Find("ActorSFXController").GetComponent<ActorSFXController>();
+                ComabatTurnSFX.StopSFX();
+            }catch{
+                Debug.Log("Couldn't Stop Combat Turn Effect..");
+            }
         }
+    }
+    public void DeleteActorFromActorsDictionary(GameObject TargetActor){
+        ActorsDictionary.Remove(TargetActor);
+        Debug.Log("Actor "+TargetActor.ToString()+"Has been removed from ActorsDictionary");
     }
     public bool UpdateActorsDictionary(GameObject TargetActor, int NextAction){//1=up,2=down,3=left,4=right,5=attack,0=idle
         try{
@@ -81,8 +109,8 @@ public class CombatManager : MonoBehaviour
                     
                 }
             }
+            CurrentCombatRounds--;
             if(OnRoundCompleted!=null){
-                CurrentCombatRounds--;
                 OnRoundCompleted(CurrentCombatRounds);
                 //Debug.Log("Completed");
                 return true;
