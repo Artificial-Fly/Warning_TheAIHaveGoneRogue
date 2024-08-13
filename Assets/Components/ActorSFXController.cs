@@ -86,9 +86,14 @@ public class ActorSFXController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var GameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-        if(GameManager!=null){
-            GameManager.OnGameStateChanged+=HandleGameStateChanged;
+        try{
+            var GameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+            if(GameManager!=null){
+                GameManager.OnGameStateChanged+=HandleGameStateChanged;
+            }
+        }
+        catch{
+
         }
         AudioSourceComponent = transform.gameObject.GetComponent<AudioSource>();
         if(PlayOnAwake){StartSFX();}
