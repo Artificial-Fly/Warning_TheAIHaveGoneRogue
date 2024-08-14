@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e62c68cf75704489a663a5492fce1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObstaclePrefab: {fileID: 9033564716711541245, guid: 8bc1bc8c1c26c9846a272942657d2d78, type: 3}
 --- !u!114 &4898501565247711266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,7 +493,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3902411238598495126, guid: 72c2ef9099e8887448c2c88c3f73edca, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5221510017614242722, guid: 72c2ef9099e8887448c2c88c3f73edca, type: 3}
       propertyPath: m_Size.x

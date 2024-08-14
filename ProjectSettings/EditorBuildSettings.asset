@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Gooseberry Platinum/Alternative Electronic Music Pack (Free)/ExampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Levels/TestLevel.unity
@@ -14,5 +14,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/MainMenu.unity
     guid: 75efe8fb5218ded4b8906cdf8e080333
+  - enabled: 1
+    path: Assets/Levels/Level_1.unity
+    guid: 11dfe71a080664d4b983d0df95c42ab1
+  - enabled: 1
+    path: Assets/Levels/Level_2.unity
+    guid: 4f41d8e8b0da8164db9188f53a9ababf
+  - enabled: 1
+    path: Assets/Levels/Level_3.unity
+    guid: 31d0ae93a4707bf44b91db1fb85fcf4e
+  - enabled: 1
+    path: Assets/Levels/Level_4.unity
+    guid: b4406fdc637f5204a835e20f2392a290
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 09602e4ed2785614e91aec7a3260e4d8, type: 2}
