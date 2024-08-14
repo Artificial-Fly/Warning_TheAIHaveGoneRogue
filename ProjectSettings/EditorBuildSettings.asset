@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Gooseberry Platinum/Alternative Electronic Music Pack (Free)/ExampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Levels/TestLevel.unity
     guid: 3fc8acdd13e6c734bafef6554d6fdbcd
   - enabled: 1
@@ -26,5 +26,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/Level_4.unity
     guid: b4406fdc637f5204a835e20f2392a290
+  - enabled: 1
+    path: Assets/Levels/PostGameMenu.unity
+    guid: 433add1f422c6f345b657848c733c2be
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 7ef6f4357edbd1c43a5f31a779989d33, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 00c850d201b865b4da6fa367f1d8af90, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 09602e4ed2785614e91aec7a3260e4d8, type: 2}
+  m_UseUCBPForAssetBundles: 0
